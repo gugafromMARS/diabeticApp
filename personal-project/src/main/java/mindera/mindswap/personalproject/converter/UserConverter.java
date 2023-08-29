@@ -16,9 +16,7 @@ public class UserConverter {
                 user.getName(),
                 user.getEmail(),
                 user.getAge(),
-                user.getInsulinPerCarbohydrate(),
-                user.getDiabeticType(),
-                user.getRegisterList());
+                user.getDiabeticDetails());
     }
 
     public User fromCreateDtoToUser(UserCreateDto userCreateDto){
@@ -28,9 +26,7 @@ public class UserConverter {
                 .withAge(userCreateDto.getAge())
                 .withHeight(userCreateDto.getHeight())
                 .withWeight(userCreateDto.getWeight())
-                .withInsulinPerCarbo(userCreateDto.getInsulinPerCarbohydrate())
-                .withInsulin(userCreateDto.getInsulinList())
-                .withDiabeticType(userCreateDto.getDiabeticType())
+                .withDiabeticDetails(userCreateDto.getDiabeticDetails())
                 .withRegisters(userCreateDto.getRegisterList())
                 .build();
 

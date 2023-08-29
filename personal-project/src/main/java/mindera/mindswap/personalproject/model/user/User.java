@@ -2,6 +2,7 @@ package mindera.mindswap.personalproject.model.user;
 
 
 import jakarta.persistence.*;
+import mindera.mindswap.personalproject.model.diabeticDetails.DiabeticDetails;
 import mindera.mindswap.personalproject.model.insulin.Insulin;
 import mindera.mindswap.personalproject.model.register.Register;
 import mindera.mindswap.personalproject.model.type.DiabeticType;
@@ -19,11 +20,8 @@ public class User {
     private int age;
     private double height;
     private int weight;
-    private double InsulinPerCarbohydrate;
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Insulin> insulinList;
     @OneToOne(cascade = CascadeType.ALL)
-    private DiabeticType diabeticType;
+    private DiabeticDetails diabeticDetails;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Register> registerList;
 
@@ -78,28 +76,12 @@ public class User {
         this.weight = weight;
     }
 
-    public double getInsulinPerCarbohydrate() {
-        return InsulinPerCarbohydrate;
+    public DiabeticDetails getDiabeticDetails() {
+        return diabeticDetails;
     }
 
-    public void setInsulinPerCarbohydrate(double insulinPerCarbohydrate) {
-        InsulinPerCarbohydrate = insulinPerCarbohydrate;
-    }
-
-    public List<Insulin> getInsulinList() {
-        return insulinList;
-    }
-
-    public void setInsulinList(List<Insulin> insulinList) {
-        this.insulinList = insulinList;
-    }
-
-    public DiabeticType getDiabeticType() {
-        return diabeticType;
-    }
-
-    public void setDiabeticType(DiabeticType diabeticType) {
-        this.diabeticType = diabeticType;
+    public void setDiabeticDetails(DiabeticDetails diabeticDetails) {
+        this.diabeticDetails = diabeticDetails;
     }
 
     public List<Register> getRegisterList() {
@@ -144,18 +126,8 @@ public class User {
             return this;
         }
 
-        public UserBuilder withInsulinPerCarbo(double insulin){
-            user.setInsulinPerCarbohydrate(insulin);
-            return this;
-        }
-
-        public UserBuilder withInsulin(List<Insulin> insulinList){
-            user.setInsulinList(insulinList);
-            return this;
-        }
-
-        public UserBuilder withDiabeticType(DiabeticType diabeticType){
-            user.setDiabeticType(diabeticType);
+        public UserBuilder withDiabeticDetails(DiabeticDetails diabeticDetails){
+            user.setDiabeticDetails(diabeticDetails);
             return this;
         }
 

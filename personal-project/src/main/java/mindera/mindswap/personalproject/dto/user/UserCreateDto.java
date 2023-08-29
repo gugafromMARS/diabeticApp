@@ -1,7 +1,9 @@
 package mindera.mindswap.personalproject.dto.user;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import mindera.mindswap.personalproject.model.diabeticDetails.DiabeticDetails;
 import mindera.mindswap.personalproject.model.insulin.Insulin;
 import mindera.mindswap.personalproject.model.register.Register;
 import mindera.mindswap.personalproject.model.type.DiabeticType;
@@ -15,9 +17,9 @@ public class UserCreateDto {
     private int age;
     private double height;
     private int weight;
-    private double InsulinPerCarbohydrate;
-    private List<Insulin> insulinList;
-    private DiabeticType diabeticType;
+    @OneToOne
+    private DiabeticDetails diabeticDetails;
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Register> registerList;
 
     public UserCreateDto() {
@@ -63,28 +65,12 @@ public class UserCreateDto {
         this.weight = weight;
     }
 
-    public double getInsulinPerCarbohydrate() {
-        return InsulinPerCarbohydrate;
+    public DiabeticDetails getDiabeticDetails() {
+        return diabeticDetails;
     }
 
-    public void setInsulinPerCarbohydrate(double insulinPerCarbohydrate) {
-        InsulinPerCarbohydrate = insulinPerCarbohydrate;
-    }
-
-    public List<Insulin> getInsulinList() {
-        return insulinList;
-    }
-
-    public void setInsulinList(List<Insulin> insulinList) {
-        this.insulinList = insulinList;
-    }
-
-    public DiabeticType getDiabeticType() {
-        return diabeticType;
-    }
-
-    public void setDiabeticType(DiabeticType diabeticType) {
-        this.diabeticType = diabeticType;
+    public void setDiabeticDetails(DiabeticDetails diabeticDetails) {
+        this.diabeticDetails = diabeticDetails;
     }
 
     public List<Register> getRegisterList() {
