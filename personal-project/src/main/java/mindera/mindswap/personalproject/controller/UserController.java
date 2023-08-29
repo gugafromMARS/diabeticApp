@@ -41,6 +41,10 @@ public class UserController {
     public ResponseEntity<String> delete(@PathVariable Long userId){
         return userService.delete(userId);
     }
+    @DeleteMapping("/{userId}/insulin/{insulinId}")
+    public ResponseEntity<String> delete(@PathVariable Long userId,@PathVariable Long insulinId){
+        return userService.deleteInsulinById(userId, insulinId);
+    }
 
 
     @PutMapping("/{userId}")
