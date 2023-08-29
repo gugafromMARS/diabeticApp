@@ -20,12 +20,15 @@ public class User {
     private double height;
     private int weight;
     private double InsulinPerCarbohydrate;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Insulin> insulinList;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private DiabeticType diabeticType;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Register> registerList;
+
+    public User() {
+    }
 
     public Long getId() {
         return id;

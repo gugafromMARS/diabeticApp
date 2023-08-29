@@ -16,6 +16,9 @@ public class UserDto {
     private DiabeticType diabeticType;
     private List<Register> registerList;
 
+    public UserDto() {
+    }
+
     public UserDto(Long id, String name, String email, int age, double insulinPerCarbohydrate, DiabeticType diabeticType, List<Register> registerList) {
         this.id = id;
         this.name = name;

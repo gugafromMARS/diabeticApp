@@ -20,6 +20,9 @@ public class UserCreateDto {
     private DiabeticType diabeticType;
     private List<Register> registerList;
 
+    public UserCreateDto() {
+    }
+
     public String getName() {
         return name;
     }

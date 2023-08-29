@@ -15,7 +15,6 @@ public class DiabeticType {
 
     private Type type;
 
-
     public Long getId() {
         return id;
     }
