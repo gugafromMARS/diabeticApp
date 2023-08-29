@@ -27,14 +27,14 @@ public class UserService {
     UserConverter userConverter;
 
     InsulinRepository insulinRepository;
-    DiabeticDetailsRepository diabeticDetailsRepository;
+
 
     @Autowired
-    public UserService(UserRepository userRepository, UserConverter userConverter, InsulinRepository insulinRepository, DiabeticDetailsRepository diabeticDetailsRepository) {
+    public UserService(UserRepository userRepository, UserConverter userConverter, InsulinRepository insulinRepository) {
         this.userRepository = userRepository;
         this.userConverter = userConverter;
         this.insulinRepository = insulinRepository;
-        this.diabeticDetailsRepository = diabeticDetailsRepository;
+
     }
 
 
@@ -87,11 +87,9 @@ public class UserService {
                     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Already have this insulin");
                 }
             }
-
             existingUser.getDiabeticDetails().getInsulinList().add(userUpdateDto.getInsulin());
         }
         existingUser.getDiabeticDetails().setInsulinPerCarbohydrate(userUpdateDto.getInsulinPerCarbohydrate());
-        diabeticDetailsRepository.save(existingUser.getDiabeticDetails());
         userRepository.save(existingUser);
         return userConverter.toDto(existingUser);
     }
