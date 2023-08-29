@@ -16,7 +16,6 @@ public class UserCreateDto {
     private double height;
     private int weight;
     private double InsulinPerCarbohydrate;
-
     private List<Insulin> insulinList;
     private DiabeticType diabeticType;
     private List<Register> registerList;

@@ -8,7 +8,7 @@ import mindera.mindswap.personalproject.model.type.DiabeticType;
 
 import java.util.List;
 
-@Entity(name = "User")
+@Entity(name = "users")
 public class User {
 
     @Id

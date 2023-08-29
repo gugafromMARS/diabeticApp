@@ -2,11 +2,12 @@ package mindera.mindswap.personalproject.model.register;
 
 
 import jakarta.persistence.*;
+import mindera.mindswap.personalproject.model.hospital.Hospital;
 import mindera.mindswap.personalproject.model.user.User;
 
 import java.time.LocalDateTime;
 
-@Entity(name = "Register")
+@Entity(name = "register")
 public class Register {
 
     @Id
@@ -18,6 +19,7 @@ public class Register {
     private int insulin;
     @ManyToOne
     private User user;
+
 
     public Long getId() {
         return id;

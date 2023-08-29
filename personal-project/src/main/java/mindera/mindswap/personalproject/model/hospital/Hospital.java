@@ -6,7 +6,7 @@ import mindera.mindswap.personalproject.model.register.Register;
 
 import java.util.List;
 
-@Entity(name ="Hospital")
+@Entity(name ="hospital")
 public class Hospital {
 
     @Id
