@@ -3,8 +3,10 @@ package mindera.mindswap.personalproject.controller;
 
 import mindera.mindswap.personalproject.dto.user.UserCreateDto;
 import mindera.mindswap.personalproject.dto.user.UserDto;
+import mindera.mindswap.personalproject.dto.user.UserUpdateDto;
 import mindera.mindswap.personalproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,4 +37,14 @@ public class UserController {
         return userService.create(userCreateDto);
     }
 
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<String> delete(@PathVariable Long userId){
+        return userService.delete(userId);
+    }
+
+
+    @PutMapping("/{userId}")
+    public UserDto update(@PathVariable Long userId, @RequestBody UserUpdateDto userUpdateDto){
+        return userService.update(userId, userUpdateDto);
+    }
 }

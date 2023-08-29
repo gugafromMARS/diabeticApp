@@ -8,9 +8,9 @@ public enum InsulinType {
     MIXED("mixed"),
     LONG("long-acting");
 
-    private final String type;
+    private final String insulinType;
 
-    InsulinType(String type) {
-        this.type = type;
+    InsulinType(String insulinType) {
+        this.insulinType = insulinType;
     }
 }

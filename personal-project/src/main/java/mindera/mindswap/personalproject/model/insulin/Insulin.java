@@ -16,6 +16,9 @@ public class Insulin {
     private String name;
     private InsulinType insulinType;
 
+    public Insulin() {
+    }
+
     public Long getId() {
         return id;
     }
