@@ -8,6 +8,7 @@ import mindera.mindswap.personalproject.dto.user.UserUpdateDto;
 import mindera.mindswap.personalproject.model.insulin.Insulin;
 import mindera.mindswap.personalproject.model.user.User;
 import mindera.mindswap.personalproject.repository.DiabeticDetailsRepository;
+import mindera.mindswap.personalproject.repository.InsulinRepository;
 import mindera.mindswap.personalproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,15 +26,16 @@ public class UserService {
 
     UserConverter userConverter;
 
+    InsulinRepository insulinRepository;
     DiabeticDetailsRepository diabeticDetailsRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository, UserConverter userConverter, DiabeticDetailsRepository diabeticDetailsRepository) {
+    public UserService(UserRepository userRepository, UserConverter userConverter, InsulinRepository insulinRepository, DiabeticDetailsRepository diabeticDetailsRepository) {
         this.userRepository = userRepository;
         this.userConverter = userConverter;
+        this.insulinRepository = insulinRepository;
         this.diabeticDetailsRepository = diabeticDetailsRepository;
     }
-
 
 
     public List<UserDto> getAll() {
@@ -65,6 +67,16 @@ public class UserService {
         return ResponseEntity.ok().build();
     }
 
+    public ResponseEntity<String> deleteInsulinById(Long userId, Long insulinId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+        Insulin insulin = insulinRepository.findById(insulinId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Insulin not found"));
+        user.getDiabeticDetails().getInsulinList().remove(insulin);
+        userRepository.save(user);
+        insulinRepository.delete(insulin);
+        return ResponseEntity.ok().build();
+    }
+
 
     public UserDto update(Long userId, UserUpdateDto userUpdateDto) {
         User existingUser = userRepository.findById(userId)
@@ -75,6 +87,7 @@ public class UserService {
                     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Already have this insulin");
                 }
             }
+
             existingUser.getDiabeticDetails().getInsulinList().add(userUpdateDto.getInsulin());
         }
         existingUser.getDiabeticDetails().setInsulinPerCarbohydrate(userUpdateDto.getInsulinPerCarbohydrate());
@@ -82,4 +95,6 @@ public class UserService {
         userRepository.save(existingUser);
         return userConverter.toDto(existingUser);
     }
+
+
 }
