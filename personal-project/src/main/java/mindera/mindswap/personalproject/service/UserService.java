@@ -69,14 +69,15 @@ public class UserService {
     public UserDto update(Long userId, UserUpdateDto userUpdateDto) {
         User existingUser = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
-
-        existingUser.getDiabeticDetails().setInsulinPerCarbohydrate(userUpdateDto.getInsulinPerCarbohydrate());
-        for(Insulin insulin : existingUser.getDiabeticDetails().getInsulinList()){
-            if (insulin.getName().equals(userUpdateDto.getInsulin().getName())){
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Already have this insulin");
+        if(userUpdateDto.getInsulin() != null) {
+            for(Insulin insulin : existingUser.getDiabeticDetails().getInsulinList()){
+                if (insulin.getName().equals(userUpdateDto.getInsulin().getName())){
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Already have this insulin");
+                }
             }
+            existingUser.getDiabeticDetails().getInsulinList().add(userUpdateDto.getInsulin());
         }
-        existingUser.getDiabeticDetails().getInsulinList().add(userUpdateDto.getInsulin());
+        existingUser.getDiabeticDetails().setInsulinPerCarbohydrate(userUpdateDto.getInsulinPerCarbohydrate());
         diabeticDetailsRepository.save(existingUser.getDiabeticDetails());
         userRepository.save(existingUser);
         return userConverter.toDto(existingUser);
