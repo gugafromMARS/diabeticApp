@@ -26,6 +26,7 @@ public class PatientConverter {
                 .withWeight(patientCreateDto.getWeight())
                 .withDiabeticDetails(patientCreateDto.getDiabeticDetails())
                 .withRegisters(patientCreateDto.getRegisterList())
+                .withAppointments(patientCreateDto.getAppointments())
                 .build();
 
     }

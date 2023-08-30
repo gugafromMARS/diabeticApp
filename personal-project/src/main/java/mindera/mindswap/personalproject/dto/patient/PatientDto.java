@@ -1,6 +1,11 @@
 package mindera.mindswap.personalproject.dto.patient;
 
+import mindera.mindswap.personalproject.model.appointment.Appointment;
 import mindera.mindswap.personalproject.model.diabeticDetails.DiabeticDetails;
+import mindera.mindswap.personalproject.model.doctor.Doctor;
+import mindera.mindswap.personalproject.model.register.Register;
+
+import java.util.List;
 
 public class PatientDto {
 
@@ -10,12 +15,14 @@ public class PatientDto {
     private int age;
     private DiabeticDetails diabeticDetails;
 
-    public PatientDto(Long id, String name, String email, int age, DiabeticDetails diabeticDetails) {
+    public PatientDto(Long id, String name, String email, int age
+            , DiabeticDetails diabeticDetails) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.age = age;
         this.diabeticDetails = diabeticDetails;
+
     }
 
     public PatientDto() {
@@ -60,4 +67,5 @@ public class PatientDto {
     public void setDiabeticDetails(DiabeticDetails diabeticDetails) {
         this.diabeticDetails = diabeticDetails;
     }
+
 }
