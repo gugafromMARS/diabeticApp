@@ -3,7 +3,9 @@ package mindera.mindswap.personalproject.dto.patient;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import mindera.mindswap.personalproject.model.appointment.Appointment;
 import mindera.mindswap.personalproject.model.diabeticDetails.DiabeticDetails;
+import mindera.mindswap.personalproject.model.doctor.Doctor;
 import mindera.mindswap.personalproject.model.register.Register;
 
 import java.util.List;
@@ -15,10 +17,10 @@ public class PatientCreateDto {
     private int age;
     private double height;
     private int weight;
-    @OneToOne
     private DiabeticDetails diabeticDetails;
-    @OneToMany(cascade = CascadeType.ALL)
     private List<Register> registerList;
+    private List<Appointment> appointments;
+
 
     public PatientCreateDto() {
     }
@@ -63,6 +65,7 @@ public class PatientCreateDto {
         this.weight = weight;
     }
 
+
     public DiabeticDetails getDiabeticDetails() {
         return diabeticDetails;
     }
@@ -77,5 +80,13 @@ public class PatientCreateDto {
 
     public void setRegisterList(List<Register> registerList) {
         this.registerList = registerList;
+    }
+
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
     }
 }

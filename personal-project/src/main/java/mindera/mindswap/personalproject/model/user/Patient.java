@@ -2,7 +2,9 @@ package mindera.mindswap.personalproject.model.user;
 
 
 import jakarta.persistence.*;
+import mindera.mindswap.personalproject.model.appointment.Appointment;
 import mindera.mindswap.personalproject.model.diabeticDetails.DiabeticDetails;
+import mindera.mindswap.personalproject.model.doctor.Doctor;
 import mindera.mindswap.personalproject.model.register.Register;
 
 import java.util.List;
@@ -22,7 +24,8 @@ public class Patient {
     private DiabeticDetails diabeticDetails;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Register> registerList;
-
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Appointment> appointments;
 
     public Patient() {
     }
@@ -91,6 +94,14 @@ public class Patient {
         this.registerList = registerList;
     }
 
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
+    }
+
     public static UserBuilder builder(){
         return new UserBuilder();
     }
@@ -132,6 +143,11 @@ public class Patient {
 
         public UserBuilder withRegisters(List<Register> registers){
             patient.setRegisterList(registers);
+            return this;
+        }
+
+        public UserBuilder withAppointments(List<Appointment> appointments){
+            patient.setAppointments(appointments);
             return this;
         }
 
