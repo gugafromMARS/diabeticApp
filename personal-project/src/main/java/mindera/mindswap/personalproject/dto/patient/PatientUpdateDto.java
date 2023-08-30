@@ -1,8 +1,8 @@
-package mindera.mindswap.personalproject.dto.user;
+package mindera.mindswap.personalproject.dto.patient;
 
 import mindera.mindswap.personalproject.model.insulin.Insulin;
 
-public class UserUpdateDto {
+public class PatientUpdateDto {
 
     private double insulinPerCarbohydrate;
     private Insulin insulin;

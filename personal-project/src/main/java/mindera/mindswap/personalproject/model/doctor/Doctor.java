@@ -14,6 +14,7 @@ public class Doctor {
     private Long id;
     private String name;
     private int age;
+    private String habitation;
     private SpecialityType speciality;
 
     public Long getId() {
@@ -38,6 +39,14 @@ public class Doctor {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getHabitation() {
+        return habitation;
+    }
+
+    public void setHabitation(String habitation) {
+        this.habitation = habitation;
     }
 
     public SpecialityType getSpeciality() {

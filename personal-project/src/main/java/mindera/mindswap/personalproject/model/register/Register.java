@@ -2,8 +2,7 @@ package mindera.mindswap.personalproject.model.register;
 
 
 import jakarta.persistence.*;
-import mindera.mindswap.personalproject.model.hospital.Hospital;
-import mindera.mindswap.personalproject.model.user.User;
+import mindera.mindswap.personalproject.model.user.Patient;
 
 import java.time.LocalDateTime;
 
@@ -18,7 +17,7 @@ public class Register {
     private int carboHydrates;
     private int insulin;
     @ManyToOne
-    private User user;
+    private Patient patient;
 
 
     public Long getId() {
@@ -61,12 +60,12 @@ public class Register {
         this.insulin = insulin;
     }
 
-    public User getUser() {
-        return user;
+    public Patient getUser() {
+        return patient;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Patient patient) {
+        this.patient = patient;
     }
 
     public static RegisterBuilder builder(){
@@ -100,8 +99,8 @@ public class Register {
             return this;
         }
 
-        public RegisterBuilder withUser(User user){
-            register.setUser(user);
+        public RegisterBuilder withUser(Patient patient){
+            register.setUser(patient);
             return this;
         }
 
