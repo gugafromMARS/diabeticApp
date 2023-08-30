@@ -1,16 +1,14 @@
-package mindera.mindswap.personalproject.dto.user;
+package mindera.mindswap.personalproject.dto.patient;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import mindera.mindswap.personalproject.model.diabeticDetails.DiabeticDetails;
-import mindera.mindswap.personalproject.model.insulin.Insulin;
 import mindera.mindswap.personalproject.model.register.Register;
-import mindera.mindswap.personalproject.model.type.DiabeticType;
 
 import java.util.List;
 
-public class UserCreateDto {
+public class PatientCreateDto {
 
     private String name;
     private String email;
@@ -22,7 +20,7 @@ public class UserCreateDto {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Register> registerList;
 
-    public UserCreateDto() {
+    public PatientCreateDto() {
     }
 
     public String getName() {

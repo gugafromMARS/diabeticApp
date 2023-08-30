@@ -3,14 +3,12 @@ package mindera.mindswap.personalproject.model.user;
 
 import jakarta.persistence.*;
 import mindera.mindswap.personalproject.model.diabeticDetails.DiabeticDetails;
-import mindera.mindswap.personalproject.model.insulin.Insulin;
 import mindera.mindswap.personalproject.model.register.Register;
-import mindera.mindswap.personalproject.model.type.DiabeticType;
 
 import java.util.List;
 
 @Entity(name = "users")
-public class User {
+public class Patient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +23,8 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Register> registerList;
 
-    public User() {
+
+    public Patient() {
     }
 
     public Long getId() {
@@ -97,47 +96,47 @@ public class User {
     }
     public static class UserBuilder {
 
-        private User user;
+        private Patient patient;
 
         public UserBuilder() {
-            user = new User();
+            patient = new Patient();
         }
 
         public UserBuilder withName(String name){
-            user.setName(name);
+            patient.setName(name);
             return this;
         }
 
         public UserBuilder withEmail(String email){
-            user.setEmail(email);
+            patient.setEmail(email);
             return this;
         }
         public UserBuilder withAge(int age){
-            user.setAge(age);
+            patient.setAge(age);
             return this;
         }
         public UserBuilder withHeight(double height){
-            user.setHeight(height);
+            patient.setHeight(height);
             return this;
         }
 
         public UserBuilder withWeight(int weight){
-            user.setWeight(weight);
+            patient.setWeight(weight);
             return this;
         }
 
         public UserBuilder withDiabeticDetails(DiabeticDetails diabeticDetails){
-            user.setDiabeticDetails(diabeticDetails);
+            patient.setDiabeticDetails(diabeticDetails);
             return this;
         }
 
         public UserBuilder withRegisters(List<Register> registers){
-            user.setRegisterList(registers);
+            patient.setRegisterList(registers);
             return this;
         }
 
-        public User build(){
-            return user;
+        public Patient build(){
+            return patient;
         }
     }
 }

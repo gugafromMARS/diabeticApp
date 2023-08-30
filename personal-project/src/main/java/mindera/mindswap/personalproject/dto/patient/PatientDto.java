@@ -1,12 +1,8 @@
-package mindera.mindswap.personalproject.dto.user;
+package mindera.mindswap.personalproject.dto.patient;
 
 import mindera.mindswap.personalproject.model.diabeticDetails.DiabeticDetails;
-import mindera.mindswap.personalproject.model.register.Register;
-import mindera.mindswap.personalproject.model.type.DiabeticType;
 
-import java.util.List;
-
-public class UserDto {
+public class PatientDto {
 
     private Long id;
     private String name;
@@ -14,7 +10,7 @@ public class UserDto {
     private int age;
     private DiabeticDetails diabeticDetails;
 
-    public UserDto(Long id, String name, String email, int age, DiabeticDetails diabeticDetails) {
+    public PatientDto(Long id, String name, String email, int age, DiabeticDetails diabeticDetails) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -22,7 +18,7 @@ public class UserDto {
         this.diabeticDetails = diabeticDetails;
     }
 
-    public UserDto() {
+    public PatientDto() {
     }
 
     public Long getId() {

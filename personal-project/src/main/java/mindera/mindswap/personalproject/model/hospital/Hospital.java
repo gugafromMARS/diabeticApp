@@ -3,8 +3,7 @@ package mindera.mindswap.personalproject.model.hospital;
 
 import jakarta.persistence.*;
 import mindera.mindswap.personalproject.model.doctor.Doctor;
-import mindera.mindswap.personalproject.model.register.Register;
-import mindera.mindswap.personalproject.model.user.User;
+import mindera.mindswap.personalproject.model.user.Patient;
 
 import java.util.List;
 
@@ -16,7 +15,7 @@ public class Hospital {
     private Long id;
     private String name;
     @OneToMany
-    private List<User> users;
+    private List<Patient> patients;
     @OneToMany
     private List<Doctor> doctors;
 
@@ -36,12 +35,12 @@ public class Hospital {
         this.name = name;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<Patient> getUsers() {
+        return patients;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setUsers(List<Patient> patients) {
+        this.patients = patients;
     }
 
     public List<Doctor> getDoctors() {
