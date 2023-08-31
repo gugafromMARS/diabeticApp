@@ -3,7 +3,7 @@ package mindera.mindswap.personalproject.model.hospital;
 
 import jakarta.persistence.*;
 import mindera.mindswap.personalproject.model.doctor.Doctor;
-import mindera.mindswap.personalproject.model.user.Patient;
+import mindera.mindswap.personalproject.model.patient.Patient;
 
 import java.util.List;
 

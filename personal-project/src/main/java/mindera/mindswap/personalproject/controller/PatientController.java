@@ -6,6 +6,7 @@ import mindera.mindswap.personalproject.dto.patient.PatientDto;
 import mindera.mindswap.personalproject.dto.patient.PatientUpdateDto;
 import mindera.mindswap.personalproject.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +34,7 @@ public class PatientController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public PatientDto create(@RequestBody PatientCreateDto patientCreateDto){
         return patientService.create(patientCreateDto);
     }

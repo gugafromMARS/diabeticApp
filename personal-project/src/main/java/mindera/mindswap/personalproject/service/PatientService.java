@@ -6,11 +6,12 @@ import mindera.mindswap.personalproject.dto.patient.PatientCreateDto;
 import mindera.mindswap.personalproject.dto.patient.PatientDto;
 import mindera.mindswap.personalproject.dto.patient.PatientUpdateDto;
 import mindera.mindswap.personalproject.model.insulin.Insulin;
-import mindera.mindswap.personalproject.model.user.Patient;
+import mindera.mindswap.personalproject.model.patient.Patient;
 import mindera.mindswap.personalproject.repository.InsulinRepository;
 import mindera.mindswap.personalproject.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -41,10 +42,11 @@ public class PatientService {
         return patients.stream().map(user -> patientConverter.toDto(user)).toList();
     }
 
+//
 
-    public PatientDto getById(Long userId) {
-        Patient patient = patientRepository.findById(userId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+    public PatientDto getById(Long patientId) {
+        Patient patient = patientRepository.findById(patientId)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
         return patientConverter.toDto(patient);
     }
 

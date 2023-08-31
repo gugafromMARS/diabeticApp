@@ -1,10 +1,9 @@
-package mindera.mindswap.personalproject.model.user;
+package mindera.mindswap.personalproject.model.patient;
 
 
 import jakarta.persistence.*;
 import mindera.mindswap.personalproject.model.appointment.Appointment;
 import mindera.mindswap.personalproject.model.diabeticDetails.DiabeticDetails;
-import mindera.mindswap.personalproject.model.doctor.Doctor;
 import mindera.mindswap.personalproject.model.register.Register;
 
 import java.util.List;

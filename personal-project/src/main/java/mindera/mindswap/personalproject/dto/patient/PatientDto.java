@@ -22,7 +22,6 @@ public class PatientDto {
         this.email = email;
         this.age = age;
         this.diabeticDetails = diabeticDetails;
-
     }
 
     public PatientDto() {

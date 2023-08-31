@@ -1,9 +1,7 @@
 package mindera.mindswap.personalproject.dto.doctor;
 
-import jakarta.persistence.OneToMany;
 import mindera.mindswap.personalproject.model.appointment.Appointment;
 import mindera.mindswap.personalproject.model.doctor.SpecialityType;
-import mindera.mindswap.personalproject.model.user.Patient;
 
 import java.util.List;
 
