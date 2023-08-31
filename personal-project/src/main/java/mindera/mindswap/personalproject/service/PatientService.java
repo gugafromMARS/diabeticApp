@@ -46,7 +46,7 @@ public class PatientService {
 
     public PatientDto getById(Long patientId) {
         Patient patient = patientRepository.findById(patientId)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
         return patientConverter.toDto(patient);
     }
 
