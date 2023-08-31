@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DoctorConverter {
 
+
     public DoctorDto toDto(Doctor doctor){
         return new DoctorDto(doctor.getId(),
                 doctor.getName(),

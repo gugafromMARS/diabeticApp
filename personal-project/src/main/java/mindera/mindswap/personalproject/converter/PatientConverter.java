@@ -2,7 +2,7 @@ package mindera.mindswap.personalproject.converter;
 
 import mindera.mindswap.personalproject.dto.patient.PatientCreateDto;
 import mindera.mindswap.personalproject.dto.patient.PatientDto;
-import mindera.mindswap.personalproject.model.user.Patient;
+import mindera.mindswap.personalproject.model.patient.Patient;
 import org.springframework.stereotype.Component;
 
 

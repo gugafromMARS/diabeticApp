@@ -2,7 +2,7 @@ package mindera.mindswap.personalproject.model.register;
 
 
 import jakarta.persistence.*;
-import mindera.mindswap.personalproject.model.user.Patient;
+import mindera.mindswap.personalproject.model.patient.Patient;
 
 import java.time.LocalDateTime;
 

@@ -3,9 +3,7 @@ package mindera.mindswap.personalproject.model.appointment;
 
 import jakarta.persistence.*;
 import mindera.mindswap.personalproject.model.doctor.Doctor;
-import mindera.mindswap.personalproject.model.user.Patient;
-
-import java.nio.file.Path;
+import mindera.mindswap.personalproject.model.patient.Patient;
 
 @Entity(name = "Appointment")
 public class Appointment {
