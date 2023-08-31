@@ -5,6 +5,8 @@ import mindera.mindswap.personalproject.dto.patient.PatientDto;
 import mindera.mindswap.personalproject.model.patient.Patient;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 
 @Component
 public class PatientConverter {
