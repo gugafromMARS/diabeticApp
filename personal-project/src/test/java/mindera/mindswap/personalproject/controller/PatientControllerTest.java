@@ -183,8 +183,6 @@ class PatientControllerTest {
 
             response.andDo(MockMvcResultHandlers.print())
                     .andExpect(status().isBadRequest());
-
-
         }
 
 
