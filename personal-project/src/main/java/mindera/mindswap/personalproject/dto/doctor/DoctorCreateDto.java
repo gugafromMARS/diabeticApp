@@ -12,7 +12,6 @@ public class DoctorCreateDto {
     private String email;
     private String address;
     private SpecialityType speciality;
-    private List<Appointment> appointments;
 
     public String getName() {
         return name;
@@ -54,11 +53,4 @@ public class DoctorCreateDto {
         this.speciality = speciality;
     }
 
-    public List<Appointment> getAppointments() {
-        return appointments;
-    }
-
-    public void setAppointments(List<Appointment> appointments) {
-        this.appointments = appointments;
-    }
 }

@@ -18,9 +18,6 @@ public class PatientCreateDto {
     private double height;
     private int weight;
     private DiabeticDetails diabeticDetails;
-    private List<Register> registerList;
-    private List<Appointment> appointments;
-
 
     public PatientCreateDto() {
     }
@@ -74,19 +71,4 @@ public class PatientCreateDto {
         this.diabeticDetails = diabeticDetails;
     }
 
-    public List<Register> getRegisterList() {
-        return registerList;
-    }
-
-    public void setRegisterList(List<Register> registerList) {
-        this.registerList = registerList;
-    }
-
-    public List<Appointment> getAppointments() {
-        return appointments;
-    }
-
-    public void setAppointments(List<Appointment> appointments) {
-        this.appointments = appointments;
-    }
 }
