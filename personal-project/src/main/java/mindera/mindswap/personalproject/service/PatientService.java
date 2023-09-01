@@ -42,7 +42,6 @@ public class PatientService {
         return patients.stream().map(user -> patientConverter.toDto(user)).toList();
     }
 
-//
 
     public PatientDto getById(Long patientId) {
         Patient patient = patientRepository.findById(patientId)
