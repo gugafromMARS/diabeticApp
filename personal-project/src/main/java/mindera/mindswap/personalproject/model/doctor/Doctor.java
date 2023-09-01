@@ -15,7 +15,7 @@ public class Doctor {
     private String name;
     private int age;
     private String email;
-    private String habitation;
+    private String address;
     private SpecialityType speciality;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Appointment> appointments;
@@ -51,12 +51,12 @@ public class Doctor {
         this.email = email;
     }
 
-    public String getHabitation() {
-        return habitation;
+    public String getAddress() {
+        return address;
     }
 
-    public void setHabitation(String habitation) {
-        this.habitation = habitation;
+    public void setAddress(String habitation) {
+        this.address = habitation;
     }
 
     public SpecialityType getSpeciality() {
@@ -100,8 +100,8 @@ public class Doctor {
             doctor.setEmail(email);
             return this;
         }
-        public DoctorBuilder withHabitation(String habitation){
-            doctor.setHabitation(habitation);
+        public DoctorBuilder withAddress(String address){
+            doctor.setAddress(address);
             return this;
         }
 

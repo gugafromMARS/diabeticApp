@@ -1,6 +1,6 @@
-package mindera.mindswap.personalproject.dto.hospital;
+package mindera.mindswap.personalproject.dto.institution;
 
-public class HospitalCreateDto {
+public class InstitutionCreateDto {
 
     private String name;
 

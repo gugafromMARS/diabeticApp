@@ -6,12 +6,10 @@ import mindera.mindswap.personalproject.dto.doctor.DoctorCreateDto;
 import mindera.mindswap.personalproject.dto.doctor.DoctorDto;
 import mindera.mindswap.personalproject.dto.doctor.DoctorUpdateDto;
 import mindera.mindswap.personalproject.model.doctor.Doctor;
-import mindera.mindswap.personalproject.repository.AppointmentRepository;
 import mindera.mindswap.personalproject.repository.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -59,7 +57,7 @@ public class DoctorService {
             doctor.setEmail(doctorUpdateDto.getEmail());
         }
         if(doctorUpdateDto.getHabitation() != null){
-            doctor.setHabitation(doctorUpdateDto.getHabitation());
+            doctor.setAddress(doctorUpdateDto.getHabitation());
         }
         doctorRepository.save(doctor);
         return doctorConverter.toDto(doctor);
