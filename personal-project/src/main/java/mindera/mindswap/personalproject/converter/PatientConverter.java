@@ -27,8 +27,6 @@ public class PatientConverter {
                 .withHeight(patientCreateDto.getHeight())
                 .withWeight(patientCreateDto.getWeight())
                 .withDiabeticDetails(patientCreateDto.getDiabeticDetails())
-                .withRegisters(patientCreateDto.getRegisterList())
-                .withAppointments(patientCreateDto.getAppointments())
                 .build();
 
     }

@@ -25,7 +25,6 @@ public class DoctorConverter {
                 .withEmail(doctorCreateDto.getEmail())
                 .withAddress(doctorCreateDto.getAddress())
                 .withSpeciality(doctorCreateDto.getSpeciality())
-                .withAppointments(doctorCreateDto.getAppointments())
                 .build();
     }
 }
