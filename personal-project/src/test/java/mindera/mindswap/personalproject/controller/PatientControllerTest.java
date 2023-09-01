@@ -1,32 +1,23 @@
 package mindera.mindswap.personalproject.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import mindera.mindswap.personalproject.converter.PatientConverter;
 import mindera.mindswap.personalproject.dto.patient.PatientCreateDto;
 import mindera.mindswap.personalproject.dto.patient.PatientDto;
-import mindera.mindswap.personalproject.model.patient.Patient;
-import mindera.mindswap.personalproject.repository.PatientRepository;
+import mindera.mindswap.personalproject.dto.patient.PatientUpdateDto;
+import mindera.mindswap.personalproject.model.diabeticDetails.DiabeticDetails;
 import mindera.mindswap.personalproject.service.PatientService;
 import org.junit.jupiter.api.*;
-import org.mockito.BDDMockito;
-import org.mockito.stubbing.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.Optional;
-
-import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willDoNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
@@ -50,8 +41,8 @@ class PatientControllerTest {
 
     PatientCreateDto patientCreateDto = new PatientCreateDto();
     PatientDto patientDto = new PatientDto();
-
-
+    PatientUpdateDto patientUpdateDto = new PatientUpdateDto();
+    PatientDto DtoUpdated = new PatientDto();
     @BeforeEach
     void createPatient(){
         //patientCreateDto setup
@@ -65,6 +56,19 @@ class PatientControllerTest {
         patientDto.setName(patientCreateDto.getName());
         patientDto.setEmail(patientCreateDto.getEmail());
         patientDto.setAge(patientCreateDto.getAge());
+    }
+
+    public void updatePatient(){
+        patientUpdateDto.setInsulinPerCarbohydrate(4);
+
+        DiabeticDetails details = new DiabeticDetails();
+        patientDto.setDiabeticDetails(details);
+        DtoUpdated.setName(patientDto.getName());
+        DtoUpdated.setEmail(patientDto.getEmail());
+        DtoUpdated.setAge(patientDto.getAge());
+        DtoUpdated.setId(patientDto.getId());
+        DtoUpdated.setDiabeticDetails(details);
+        DtoUpdated.getDiabeticDetails().setInsulinPerCarbohydrate(patientUpdateDto.getInsulinPerCarbohydrate());
 
     }
 
@@ -90,6 +94,33 @@ class PatientControllerTest {
                     .andExpect(jsonPath("$.email", is(patientDto.getEmail())))
                     .andExpect(jsonPath("$.age", is(patientDto.getAge())));
         }
+        @Test
+        @DisplayName("Create an exists patient and return 400")
+        public void createExistsPatient400() throws Exception {
+
+            when(patientService.create(patientCreateDto)).thenReturn(null);
+
+            ResultActions response = mockMvc.perform(post("/patients")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(patientCreateDto)));
+
+                response.andDo(MockMvcResultHandlers.print())
+                        .andExpect(status().isBadRequest());
+        }
+
+        @Test
+        @DisplayName("Give a valid id and return 200")
+        public void giveAValidPatientId200() throws Exception {
+
+            Long id = 1L;
+
+            given(patientService.getById(id)).willReturn(patientDto);
+
+            ResultActions response = mockMvc.perform(get("/patients/{patientId}", id));
+
+            response.andDo(MockMvcResultHandlers.print())
+                    .andExpect(status().isOk());
+        }
 
         @Test
         @DisplayName("Give an invalid id and return 404")
@@ -103,6 +134,62 @@ class PatientControllerTest {
             response.andDo(MockMvcResultHandlers.print())
                     .andExpect(status().isNotFound());
         }
+
+        @Test
+        @DisplayName("Delete a valid patient and return 200")
+        public void deleteAValidPatient200() throws Exception {
+            Long id = 1L;
+
+            willDoNothing().given(patientService).delete(id);
+
+            ResultActions response = mockMvc.perform(delete("/patients/{patientId}", id));
+
+            response.andDo(MockMvcResultHandlers.print())
+                    .andExpect(status().isOk());
+        }
+
+        @Test
+        @DisplayName("Update a valid patient and returns 200")
+        public void updateValidPatient200() throws Exception {
+            updatePatient();
+            Long id = patientDto.getId();
+
+            given(patientService.getById(id)).willReturn(patientDto);
+            given(patientService.update(any(Long.class),any(PatientUpdateDto.class))).willReturn(DtoUpdated);
+
+            ResultActions response = mockMvc.perform(put("/patients/{patientId}", id)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(patientUpdateDto)));
+
+            response.andDo(MockMvcResultHandlers.print())
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.name", is(DtoUpdated.getName())))
+                    .andExpect(jsonPath("$.email", is(DtoUpdated.getEmail())))
+                    .andExpect(jsonPath("$.age", is(DtoUpdated.getAge())));
+        }
+
+        @Test
+        @DisplayName("Try to update with a invalid patient id and returns 400")
+        public void updateInValidPatient400() throws Exception {
+            updatePatient();
+            Long id = patientDto.getId();
+
+            given(patientService.getById(id)).willReturn(patientDto);
+            given(patientService.update(id,patientUpdateDto)).willReturn(DtoUpdated);
+
+            ResultActions response = mockMvc.perform(put("/patients/{patientId}", id)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(patientUpdateDto)));
+
+            response.andDo(MockMvcResultHandlers.print())
+                    .andExpect(status().isBadRequest());
+
+
+        }
+
+
+
+
     }
 
 

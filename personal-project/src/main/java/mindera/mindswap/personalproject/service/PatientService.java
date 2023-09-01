@@ -60,21 +60,19 @@ public class PatientService {
         return patientConverter.toDto(newPatient);
     }
 
-    public ResponseEntity<String> delete(Long userId) {
+    public void delete(Long userId) {
         Patient patient = patientRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
         patientRepository.delete(patient);
-        return ResponseEntity.ok().build();
     }
 
-    public ResponseEntity<String> deleteInsulinById(Long userId, Long insulinId) {
+    public void deleteInsulinById(Long userId, Long insulinId) {
         Patient patient = patientRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
         Insulin insulin = insulinRepository.findById(insulinId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Insulin not found"));
         patient.getDiabeticDetails().getInsulinList().remove(insulin);
         patientRepository.save(patient);
         insulinRepository.delete(insulin);
-        return ResponseEntity.ok().build();
     }
 
 
