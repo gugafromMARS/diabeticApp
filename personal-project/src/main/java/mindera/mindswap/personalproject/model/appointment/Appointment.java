@@ -8,7 +8,7 @@ import mindera.mindswap.personalproject.model.patient.Patient;
 
 import java.time.LocalDateTime;
 
-@Entity(name = "Appointment")
+@Entity(name = "appointment")
 public class Appointment {
 
     @Id

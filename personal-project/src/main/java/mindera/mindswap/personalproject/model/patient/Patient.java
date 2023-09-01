@@ -8,7 +8,7 @@ import mindera.mindswap.personalproject.model.register.Register;
 
 import java.util.List;
 
-@Entity(name = "users")
+@Entity(name = "patient")
 public class Patient {
 
     @Id
