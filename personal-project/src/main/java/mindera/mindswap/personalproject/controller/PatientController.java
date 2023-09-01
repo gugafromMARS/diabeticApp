@@ -36,7 +36,7 @@ public class PatientController {
         if(patientDto == null){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok().build();
+        return new ResponseEntity<>(patientDto, HttpStatus.OK);
     }
 
     @PostMapping

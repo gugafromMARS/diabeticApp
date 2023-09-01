@@ -23,7 +23,7 @@ public class DoctorConverter {
                 .withName(doctorCreateDto.getName())
                 .withAge(doctorCreateDto.getAge())
                 .withEmail(doctorCreateDto.getEmail())
-                .withHabitation(doctorCreateDto.getHabitation())
+                .withAddress(doctorCreateDto.getAddress())
                 .withSpeciality(doctorCreateDto.getSpeciality())
                 .withAppointments(doctorCreateDto.getAppointments())
                 .build();

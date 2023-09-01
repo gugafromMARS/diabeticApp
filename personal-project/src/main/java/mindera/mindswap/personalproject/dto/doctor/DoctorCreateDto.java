@@ -10,7 +10,7 @@ public class DoctorCreateDto {
     private String name;
     private int age;
     private String email;
-    private String habitation;
+    private String address;
     private SpecialityType speciality;
     private List<Appointment> appointments;
 
@@ -38,12 +38,12 @@ public class DoctorCreateDto {
         this.email = email;
     }
 
-    public String getHabitation() {
-        return habitation;
+    public String getAddress() {
+        return address;
     }
 
-    public void setHabitation(String habitation) {
-        this.habitation = habitation;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public SpecialityType getSpeciality() {
