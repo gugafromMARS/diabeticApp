@@ -31,6 +31,14 @@ public class Appointment {
         this.id = id;
     }
 
+    public LocalDateTime getLocalDateTime() {
+        return localDateTime;
+    }
+
+    public void setLocalDateTime(LocalDateTime localDateTime) {
+        this.localDateTime = localDateTime;
+    }
+
     public Patient getPatient() {
         return patient;
     }
@@ -47,11 +55,60 @@ public class Appointment {
         this.doctor = doctor;
     }
 
+    public Institution getInstitution() {
+        return institution;
+    }
+
+    public void setInstitution(Institution institution) {
+        this.institution = institution;
+    }
+
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public static AppointmentBuilder builder() {
+        return new AppointmentBuilder();
+    }
+
+    public static class AppointmentBuilder {
+        private Appointment appointment;
+
+        public AppointmentBuilder() {
+            appointment = new Appointment();
+        }
+
+        public AppointmentBuilder withLocalDate(LocalDateTime date){
+            appointment.setLocalDateTime(date);
+            return this;
+        }
+
+        public AppointmentBuilder withPatient (Patient patient){
+            appointment.setPatient(patient);
+            return this;
+        }
+
+        public AppointmentBuilder withDoctor(Doctor doctor){
+            appointment.setDoctor(doctor);
+            return this;
+        }
+
+        public AppointmentBuilder withInstitution(Institution institution){
+            appointment.setInstitution(institution);
+            return this;
+        }
+
+        public AppointmentBuilder withDescription(String description){
+            appointment.setDescription(description);
+            return this;
+        }
+
+        public Appointment build(){
+            return appointment;
+        }
     }
 }
