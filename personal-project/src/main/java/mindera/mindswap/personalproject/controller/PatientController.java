@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,27 +36,37 @@ public class PatientController {
         if(patientDto == null){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(patientDto);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PatientDto create(@RequestBody PatientCreateDto patientCreateDto){
-        return patientService.create(patientCreateDto);
+    public ResponseEntity<PatientDto> create(@RequestBody PatientCreateDto patientCreateDto){
+        PatientDto patientDto = patientService.create(patientCreateDto);
+        if(patientDto == null){
+            return ResponseEntity.badRequest().build();
+        }
+        return new ResponseEntity<>(patientDto, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{patientId}")
     public ResponseEntity<String> delete(@PathVariable Long patientId){
-        return patientService.delete(patientId);
+        patientService.delete(patientId);
+        return new ResponseEntity<>("Patient deleted successfully", HttpStatus.OK);
     }
     @DeleteMapping("/{patientId}/insulin/{insulinId}")
     public ResponseEntity<String> delete(@PathVariable Long patientId,@PathVariable Long insulinId){
-        return patientService.deleteInsulinById(patientId, insulinId);
+        patientService.deleteInsulinById(patientId, insulinId);
+        return ResponseEntity.ok().build();
     }
 
 
     @PutMapping("/{patientId}")
-    public PatientDto update(@PathVariable Long patientId, @RequestBody PatientUpdateDto patientUpdateDto){
-        return patientService.update(patientId, patientUpdateDto);
+    public ResponseEntity<PatientDto> update(@PathVariable Long patientId, @RequestBody PatientUpdateDto patientUpdateDto){
+        PatientDto patientDto = patientService.update(patientId, patientUpdateDto);
+        if(patientDto == null){
+            return ResponseEntity.badRequest().build();
+        }
+        return new ResponseEntity<>(patientDto, HttpStatus.OK);
     }
 }
