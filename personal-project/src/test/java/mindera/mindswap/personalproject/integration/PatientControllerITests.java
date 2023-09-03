@@ -2,12 +2,12 @@ package mindera.mindswap.personalproject.integration;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import mindera.mindswap.personalproject.dto.patient.PatientCreateDto;
-import mindera.mindswap.personalproject.dto.patient.PatientDto;
-import mindera.mindswap.personalproject.dto.patient.PatientUpdateDto;
-import mindera.mindswap.personalproject.model.diabeticDetails.DiabeticDetails;
-import mindera.mindswap.personalproject.model.patient.Patient;
-import mindera.mindswap.personalproject.repository.PatientRepository;
+import mindera.mindswap.personalproject.patient.dto.PatientCreateDto;
+import mindera.mindswap.personalproject.patient.dto.PatientDto;
+import mindera.mindswap.personalproject.patient.dto.PatientUpdateDto;
+import mindera.mindswap.personalproject.diabeticDetails.model.DiabeticDetails;
+import mindera.mindswap.personalproject.patient.model.Patient;
+import mindera.mindswap.personalproject.patient.repository.PatientRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -19,9 +19,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.willDoNothing;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
