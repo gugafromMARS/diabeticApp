@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/doctor")
+@RequestMapping("/appointments")
 public class AppointmentController {
 
     private AppointmentService appointmentService;
@@ -22,7 +22,7 @@ public class AppointmentController {
         this.appointmentService = appointmentService;
     }
 
-    @GetMapping("/{doctorId}/appointments")
+    @GetMapping
     public ResponseEntity<List<AppointmentDto>> getAll(@PathVariable ("doctorId") Long doctorId){
         List<AppointmentDto> appointmentDtos = appointmentService.getAll(doctorId);
         if(appointmentDtos == null){
@@ -31,7 +31,7 @@ public class AppointmentController {
         return new ResponseEntity<>(appointmentDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/{doctorId}/appointments/{appointmentId}")
+    @GetMapping("/{appointmentId}/doctor/{doctorId}")
     public ResponseEntity<AppointmentDto> getById(@PathVariable ("doctorId") Long doctorId,
                                                   @PathVariable ("appointmentId") Long appointmentId) {
         AppointmentDto appointmentDto = appointmentService.getById(doctorId, appointmentId);
@@ -41,7 +41,7 @@ public class AppointmentController {
         return new ResponseEntity<>(appointmentDto, HttpStatus.OK);
     }
 
-    @PostMapping("/appointments/{doctorId}/{patientId}")
+    @PostMapping("/doctor/{doctorId}/patient/{patientId}")
     public ResponseEntity<AppointmentDto> create(@PathVariable ("doctorId") Long doctorId ,
                                                  @PathVariable ("patientId") Long patientId,
                                                  @RequestBody AppointmentCreateDto appointmentCreateDto){

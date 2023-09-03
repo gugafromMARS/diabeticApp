@@ -19,12 +19,12 @@ public class PatientConverter {
 
     public Patient fromCreateDtoToUser(PatientCreateDto patientCreateDto){
         return Patient.builder()
-                .withName(patientCreateDto.getName())
-                .withEmail(patientCreateDto.getEmail())
-                .withAge(patientCreateDto.getAge())
-                .withHeight(patientCreateDto.getHeight())
-                .withWeight(patientCreateDto.getWeight())
-                .withDiabeticDetails(patientCreateDto.getDiabeticDetails())
+                .name(patientCreateDto.getName())
+                .email(patientCreateDto.getEmail())
+                .age(patientCreateDto.getAge())
+                .height(patientCreateDto.getHeight())
+                .weight(patientCreateDto.getWeight())
+                .diabeticDetails(patientCreateDto.getDiabeticDetails())
                 .build();
 
     }

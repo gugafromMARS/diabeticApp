@@ -20,11 +20,11 @@ public class DoctorConverter {
 
     public Doctor fromDoctorCreateDto(DoctorCreateDto doctorCreateDto){
         return Doctor.builder()
-                .withName(doctorCreateDto.getName())
-                .withAge(doctorCreateDto.getAge())
-                .withEmail(doctorCreateDto.getEmail())
-                .withAddress(doctorCreateDto.getAddress())
-                .withSpeciality(doctorCreateDto.getSpeciality())
+                .name(doctorCreateDto.getName())
+                .age(doctorCreateDto.getAge())
+                .email(doctorCreateDto.getEmail())
+                .address(doctorCreateDto.getAddress())
+                .speciality(doctorCreateDto.getSpeciality())
                 .build();
     }
 }
