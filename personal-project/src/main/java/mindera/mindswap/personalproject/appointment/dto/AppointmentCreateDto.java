@@ -1,22 +1,20 @@
 package mindera.mindswap.personalproject.appointment.dto;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class AppointmentCreateDto {
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate localDateTime;
+    private LocalDate localDate;
     private String description;
 
-    public LocalDate getLocalDateTime() {
-        return localDateTime;
+    public LocalDate getLocalDate() {
+        return localDate;
     }
 
-    public void setLocalDateTime(LocalDate localDateTime) {
-        this.localDateTime = localDateTime;
+    public void setLocalDate(LocalDate localDate) {
+        this.localDate = localDate;
     }
 
     public String getDescription() {
@@ -26,4 +24,5 @@ public class AppointmentCreateDto {
     public void setDescription(String description) {
         this.description = description;
     }
+
 }

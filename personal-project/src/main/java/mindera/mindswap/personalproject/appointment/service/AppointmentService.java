@@ -3,17 +3,14 @@ package mindera.mindswap.personalproject.appointment.service;
 
 import mindera.mindswap.personalproject.appointment.converter.AppointmentConverter;
 import mindera.mindswap.personalproject.doctor.converter.DoctorConverter;
-import mindera.mindswap.personalproject.institution.converter.InstitutionConverter;
 import mindera.mindswap.personalproject.patient.converter.PatientConverter;
 import mindera.mindswap.personalproject.appointment.dto.AppointmentCreateDto;
 import mindera.mindswap.personalproject.appointment.dto.AppointmentDto;
 import mindera.mindswap.personalproject.appointment.model.Appointment;
 import mindera.mindswap.personalproject.doctor.model.Doctor;
-import mindera.mindswap.personalproject.institution.model.Institution;
 import mindera.mindswap.personalproject.patient.model.Patient;
 import mindera.mindswap.personalproject.appointment.repository.AppointmentRepository;
 import mindera.mindswap.personalproject.doctor.repository.DoctorRepository;
-import mindera.mindswap.personalproject.institution.repository.InstitutionRepository;
 import mindera.mindswap.personalproject.patient.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,23 +26,18 @@ public class AppointmentService {
     private DoctorRepository doctorRepository;
     private AppointmentConverter appointmentConverter;
     private PatientRepository patientRepository;
-    private InstitutionRepository institutionRepository;
-
     private PatientConverter patientConverter;
     private DoctorConverter doctorConverter;
-    private InstitutionConverter institutionConverter;
 
 
     @Autowired
-    public AppointmentService(AppointmentRepository appointmentRepository, DoctorRepository doctorRepository, AppointmentConverter appointmentConverter, PatientRepository patientRepository, InstitutionRepository institutionRepository, PatientConverter patientConverter, DoctorConverter doctorConverter, InstitutionConverter institutionConverter) {
+    public AppointmentService(AppointmentRepository appointmentRepository, DoctorRepository doctorRepository, AppointmentConverter appointmentConverter, PatientRepository patientRepository, PatientConverter patientConverter, DoctorConverter doctorConverter) {
         this.appointmentRepository = appointmentRepository;
         this.doctorRepository = doctorRepository;
         this.appointmentConverter = appointmentConverter;
         this.patientRepository = patientRepository;
-        this.institutionRepository = institutionRepository;
         this.patientConverter = patientConverter;
         this.doctorConverter = doctorConverter;
-        this.institutionConverter = institutionConverter;
     }
 
     public List<AppointmentDto> getAll(Long doctorId) {
@@ -62,33 +54,22 @@ public class AppointmentService {
     }
 
     public AppointmentDto create(Long doctorId, Long patientId, AppointmentCreateDto appointmentCreateDto) {
-        Long defaultInstitution = 1L;
         Doctor doctor = doctorRepository.findById(doctorId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found"));
+
         Patient patient = patientRepository.findById(patientId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient not found"));
 
-        Appointment appointment = appointmentRepository.findByDoctorIdPatientIdAndDate(doctorId,
+        Appointment existingAppointment = appointmentRepository.findByDoctorIdPatientIdAndDate(doctorId,
                 patientId,
-                appointmentCreateDto.getLocalDateTime());
-        Institution institution = institutionRepository.findById(defaultInstitution)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient not found"));
-
-        if (appointment != null) {
+                appointmentCreateDto.getLocalDate());
+        if (existingAppointment != null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Appointment already exists");
         }
-        Appointment newAppointment = Appointment.builder()
-                .withLocalDate(appointmentCreateDto.getLocalDateTime())
-                .withDoctor(doctor)
-                .withPatient(patient)
-                .withInstitution(institution)
-                .withDescription(appointmentCreateDto.getDescription())
-                .build();//appointmentConverter.fromCreateDto(appointmentCreateDto);
-        doctor.getAppointments().add(newAppointment);
+        Appointment newAppointment = appointmentConverter.fromCreateDto(appointmentCreateDto,
+                patient, doctor);
         appointmentRepository.save(newAppointment);
 
-        return new AppointmentDto(newAppointment.getLocalDateTime(),
-                patient, doctor, institution);
-
+        return appointmentConverter.toDto(newAppointment);
     }
 }

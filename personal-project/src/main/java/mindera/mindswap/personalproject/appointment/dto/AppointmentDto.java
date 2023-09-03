@@ -1,67 +1,67 @@
 package mindera.mindswap.personalproject.appointment.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import mindera.mindswap.personalproject.doctor.dto.DoctorDto;
 import mindera.mindswap.personalproject.doctor.model.Doctor;
-import mindera.mindswap.personalproject.institution.model.Institution;
+import mindera.mindswap.personalproject.patient.dto.PatientDto;
 import mindera.mindswap.personalproject.patient.model.Patient;
 
 import java.time.LocalDate;
 
+//@JsonIgnoreProperties(ignoreUnknown=true)
 public class AppointmentDto {
 
-    private Long Id;
-    private LocalDate localDateTime;
-    private Patient patient;
-    private Doctor doctor;
-    private Institution institution;
+    private Long id;
+    private LocalDate localDate;
+    private PatientDto patientDto;
+    private DoctorDto doctorDto;
+    private String description;
 
-    public AppointmentDto(LocalDate localDateTime, Patient patient, Doctor doctor, Institution institution) {
-        this.localDateTime = localDateTime;
-        this.patient = patient;
-        this.doctor = doctor;
-        this.institution = institution;
-    }
-
-    public AppointmentDto(LocalDate localDateTime) {
-        this.localDateTime = localDateTime;
+    public AppointmentDto(Long id, LocalDate localDate, PatientDto patientDto, DoctorDto doctorDto, String description) {
+        this.id = id;
+        this.localDate = localDate;
+        this.patientDto = patientDto;
+        this.doctorDto = doctorDto;
+        this.description = description;
     }
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
-    public LocalDate getLocalDateTime() {
-        return localDateTime;
+    public LocalDate getLocalDate() {
+        return localDate;
     }
 
-    public void setLocalDateTime(LocalDate localDateTime) {
-        this.localDateTime = localDateTime;
+    public void setLocalDate(LocalDate localDate) {
+        this.localDate = localDate;
     }
 
-    public Patient getPatient() {
-        return patient;
+    public PatientDto getPatientDto() {
+        return patientDto;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    public void setPatientDto(PatientDto patientDto) {
+        this.patientDto = patientDto;
     }
 
-    public Doctor getDoctor() {
-        return doctor;
+    public DoctorDto getDoctorDto() {
+        return doctorDto;
     }
 
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
+    public void setDoctorDto(DoctorDto doctorDto) {
+        this.doctorDto = doctorDto;
     }
 
-    public Institution getInstitution() {
-        return institution;
+    public String getDescription() {
+        return description;
     }
 
-    public void setInstitution(Institution institution) {
-        this.institution = institution;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
