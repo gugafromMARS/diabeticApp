@@ -2,6 +2,7 @@ package mindera.mindswap.personalproject.appointment.service;
 
 
 import mindera.mindswap.personalproject.appointment.converter.AppointmentConverter;
+import mindera.mindswap.personalproject.appointment.dto.AppointmentUpdateDto;
 import mindera.mindswap.personalproject.doctor.converter.DoctorConverter;
 import mindera.mindswap.personalproject.patient.converter.PatientConverter;
 import mindera.mindswap.personalproject.appointment.dto.AppointmentCreateDto;
@@ -40,17 +41,29 @@ public class AppointmentService {
         this.doctorConverter = doctorConverter;
     }
 
-    public List<AppointmentDto> getAll(Long doctorId) {
-        return doctorRepository.findById(doctorId).get().getAppointments()
-                .stream().map(appointment -> appointmentConverter.toDto(appointment)).toList();
-
+    public List<AppointmentDto> getAll() {
+        return appointmentRepository.findAll().stream()
+                .map(appointment -> appointmentConverter.toDto(appointment)).toList();
     }
 
-    public AppointmentDto getById(Long doctorId, Long appointmentId) {
-        return doctorRepository.findById(doctorId).get().getAppointments()
-                .stream().filter(appointment -> appointment.getId().equals(appointmentId))
+    public AppointmentDto getById(Long appointmentId) {
+        return appointmentRepository.findById(appointmentId).stream()
                 .map(appointment -> appointmentConverter.toDto(appointment))
                 .findFirst().orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Appointment not found"));
+    }
+
+    public List<AppointmentDto> getAllByPatientId(Long patientId) {
+        Patient patient = patientRepository.findById(patientId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient not found"));
+        return patient.getAppointments().stream()
+                .map(appointment -> appointmentConverter.toDto(appointment)).toList();
+    }
+
+    public List<AppointmentDto> getAllByDoctorId(Long doctorId) {
+        Doctor doctor = doctorRepository.findById(doctorId)
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found"));
+        return doctor.getAppointments().stream()
+                .map(appointment -> appointmentConverter.toDto(appointment)).toList();
     }
 
     public AppointmentDto create(Long doctorId, Long patientId, AppointmentCreateDto appointmentCreateDto) {
@@ -71,5 +84,20 @@ public class AppointmentService {
         appointmentRepository.save(newAppointment);
 
         return appointmentConverter.toDto(newAppointment);
+    }
+
+    public void delete(Long appointmentId) {
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Appointment not found"));
+        appointmentRepository.delete(appointment);
+    }
+
+
+    public AppointmentDto update(Long appointmentId, AppointmentUpdateDto appointmentUpdateDto) {
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Appointment not found"));
+        appointment.setLocalDate(appointmentUpdateDto.getLocalDate());
+        appointmentRepository.save(appointment);
+        return appointmentConverter.toDto(appointment);
     }
 }

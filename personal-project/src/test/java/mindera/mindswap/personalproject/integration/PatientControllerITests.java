@@ -57,8 +57,8 @@ public class PatientControllerITests {
 
     private Patient persistPatient(){
         Patient patient = Patient.builder()
-                .withEmail(patientCreateDto.getEmail())
-                .withDiabeticDetails(new DiabeticDetails())
+                .email(patientCreateDto.getEmail())
+                .diabeticDetails(new DiabeticDetails())
                         .build();
         patientRepository.save(patient);
         return patient;
