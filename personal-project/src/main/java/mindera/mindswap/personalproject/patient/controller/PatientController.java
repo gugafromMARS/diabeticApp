@@ -1,6 +1,8 @@
 package mindera.mindswap.personalproject.patient.controller;
 
 
+import mindera.mindswap.personalproject.diabeticDetails.dto.DiabeticDetailsCreateDto;
+import mindera.mindswap.personalproject.diabeticDetails.model.DiabeticDetails;
 import mindera.mindswap.personalproject.patient.dto.PatientCreateDto;
 import mindera.mindswap.personalproject.patient.dto.PatientDto;
 import mindera.mindswap.personalproject.patient.dto.PatientUpdateDto;
@@ -38,9 +40,17 @@ public class PatientController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<PatientDto> create(@RequestBody PatientCreateDto patientCreateDto){
         PatientDto patientDto = patientService.create(patientCreateDto);
+        if(patientDto == null){
+            return ResponseEntity.badRequest().build();
+        }
+        return new ResponseEntity<>(patientDto, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/{patientId}/diabeticDetails")
+    public ResponseEntity<PatientDto> createDiabeticDetails(@PathVariable ("patientId") Long patientId, @RequestBody DiabeticDetailsCreateDto diabeticDetailsCreateDto){
+        PatientDto patientDto = patientService.createDiabeticDetails(patientId, diabeticDetailsCreateDto);
         if(patientDto == null){
             return ResponseEntity.badRequest().build();
         }
