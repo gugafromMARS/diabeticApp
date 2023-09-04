@@ -1,6 +1,10 @@
 package mindera.mindswap.personalproject.patient.service;
 
 
+import mindera.mindswap.personalproject.diabeticDetails.converter.DiabeticDetailsConverter;
+import mindera.mindswap.personalproject.diabeticDetails.dto.DiabeticDetailsCreateDto;
+import mindera.mindswap.personalproject.diabeticDetails.model.DiabeticDetails;
+import mindera.mindswap.personalproject.diabeticDetails.repository.DiabeticDetailsRepository;
 import mindera.mindswap.personalproject.patient.converter.PatientConverter;
 import mindera.mindswap.personalproject.patient.dto.PatientCreateDto;
 import mindera.mindswap.personalproject.patient.dto.PatientDto;
@@ -25,19 +29,22 @@ public class PatientService {
 
     InsulinRepository insulinRepository;
 
+    DiabeticDetailsConverter diabeticDetailsConverter;
+
+    DiabeticDetailsRepository diabeticDetailsRepository;
 
     @Autowired
-    public PatientService(PatientRepository patientRepository, PatientConverter patientConverter, InsulinRepository insulinRepository) {
+    public PatientService(PatientRepository patientRepository, PatientConverter patientConverter, InsulinRepository insulinRepository, DiabeticDetailsConverter diabeticDetailsConverter, DiabeticDetailsRepository diabeticDetailsRepository) {
         this.patientRepository = patientRepository;
         this.patientConverter = patientConverter;
         this.insulinRepository = insulinRepository;
-
+        this.diabeticDetailsConverter = diabeticDetailsConverter;
+        this.diabeticDetailsRepository = diabeticDetailsRepository;
     }
-
 
     public List<PatientDto> getAll() {
         List<Patient> patients = patientRepository.findAll();
-        return patients.stream().map(user -> patientConverter.toDto(user)).toList();
+        return patients.stream().map(patient -> patientConverter.toDto(patient)).toList();
     }
 
 
@@ -89,5 +96,13 @@ public class PatientService {
         return patientConverter.toDto(existingPatient);
     }
 
-
+    public PatientDto createDiabeticDetails(Long patientId, DiabeticDetailsCreateDto diabeticDetailsCreateDto) {
+            Patient existingPatient = patientRepository.findById(patientId)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient not found"));
+            DiabeticDetails diabeticDetails = diabeticDetailsConverter.fromCreateDto(diabeticDetailsCreateDto);
+            diabeticDetailsRepository.save(diabeticDetails);
+            existingPatient.setDiabeticDetails(diabeticDetails);
+            patientRepository.save(existingPatient);
+            return patientConverter.toDto(existingPatient);
+    }
 }
