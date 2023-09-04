@@ -1,8 +1,12 @@
 package mindera.mindswap.personalproject.calculator;
 
+
+import org.springframework.stereotype.Component;
+
+@Component
 public class Calculator {
 
-    public static int calculateInsulin(int carboHydrates, int insulinPerCarboHydrate){
+    public double calculateInsulin(double carboHydrates, double insulinPerCarboHydrate){
         return  (carboHydrates / 15) * insulinPerCarboHydrate;
     }
 
