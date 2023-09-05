@@ -39,6 +39,17 @@ public class PatientController {
         return new ResponseEntity<>(patientDto, HttpStatus.OK);
     }
 
+    @GetMapping("/{patientId}/appointments")
+    public ResponseEntity<?> getAllAppointments(@PathVariable ("patientId") Long patientId){
+        return ResponseEntity.ok(patientService.getAllAppointments(patientId));
+    }
+
+    @GetMapping("/{patientId}/appointments/{appointmentId}")
+    public ResponseEntity<?> getAppointment(@PathVariable ("patientId") Long patientId, @PathVariable ("appointmentId") Long appointmentId){
+        return ResponseEntity.ok(patientService.getAppointmentById(patientId, appointmentId));
+    }
+
+
     @PostMapping
     public ResponseEntity<PatientDto> create(@RequestBody PatientCreateDto patientCreateDto){
         PatientDto patientDto = patientService.create(patientCreateDto);

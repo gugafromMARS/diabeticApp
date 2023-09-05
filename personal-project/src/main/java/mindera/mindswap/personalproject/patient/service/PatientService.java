@@ -1,6 +1,10 @@
 package mindera.mindswap.personalproject.patient.service;
 
 
+import mindera.mindswap.personalproject.appointment.converter.AppointmentConverter;
+import mindera.mindswap.personalproject.appointment.dto.AppointmentDto;
+import mindera.mindswap.personalproject.appointment.model.Appointment;
+import mindera.mindswap.personalproject.appointment.repository.AppointmentRepository;
 import mindera.mindswap.personalproject.diabeticDetails.converter.DiabeticDetailsConverter;
 import mindera.mindswap.personalproject.diabeticDetails.dto.DiabeticDetailsCreateDto;
 import mindera.mindswap.personalproject.diabeticDetails.model.DiabeticDetails;
@@ -33,19 +37,27 @@ public class PatientService {
 
     DiabeticDetailsRepository diabeticDetailsRepository;
 
+    AppointmentConverter appointmentConverter;
+
+    AppointmentRepository appointmentRepository;
+
     @Autowired
-    public PatientService(PatientRepository patientRepository, PatientConverter patientConverter, InsulinRepository insulinRepository, DiabeticDetailsConverter diabeticDetailsConverter, DiabeticDetailsRepository diabeticDetailsRepository) {
+    public PatientService(PatientRepository patientRepository, PatientConverter patientConverter, InsulinRepository insulinRepository, DiabeticDetailsConverter diabeticDetailsConverter, DiabeticDetailsRepository diabeticDetailsRepository, AppointmentConverter appointmentConverter, AppointmentRepository appointmentRepository) {
         this.patientRepository = patientRepository;
         this.patientConverter = patientConverter;
         this.insulinRepository = insulinRepository;
         this.diabeticDetailsConverter = diabeticDetailsConverter;
         this.diabeticDetailsRepository = diabeticDetailsRepository;
+        this.appointmentConverter = appointmentConverter;
+        this.appointmentRepository = appointmentRepository;
     }
 
     public List<PatientDto> getAll() {
         List<Patient> patients = patientRepository.findAll();
         return patients.stream().map(patient -> patientConverter.toDto(patient)).toList();
     }
+
+
 
 
     public PatientDto getById(Long patientId) {
@@ -104,5 +116,20 @@ public class PatientService {
             existingPatient.setDiabeticDetails(diabeticDetails);
             patientRepository.save(existingPatient);
             return patientConverter.toDto(existingPatient);
+    }
+
+    public List<AppointmentDto> getAllAppointments(Long patientId) {
+        Patient patient = patientRepository.findById(patientId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient not found"));
+        return patient.getAppointments().stream()
+                .map(appointment -> appointmentConverter.toDto(appointment)).toList();
+    }
+
+    public AppointmentDto getAppointmentById(Long patientId, Long appointmentId) {
+        Patient patient = patientRepository.findById(patientId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient not found"));
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Appointment not found"));
+        return appointmentConverter.toDto(appointment);
     }
 }
