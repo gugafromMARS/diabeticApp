@@ -40,4 +40,14 @@ public class DoctorController {
         return doctorService.update(doctorId, doctorUpdateDto);
     }
 
+    @GetMapping("/{doctorId}/appointments")
+    public ResponseEntity<?> getAllAppointments(@PathVariable ("doctorId") Long doctorId){
+        return ResponseEntity.ok(doctorService.getAppointments(doctorId));
+    }
+
+    @GetMapping("/{doctorId}/appointments/{appointmentId}")
+    public ResponseEntity<?> getAppointmentById(@PathVariable ("doctorId") Long doctorId, @PathVariable ("appointmentId") Long appointmentId){
+        return ResponseEntity.ok(doctorService.getAppointmentById(doctorId, appointmentId));
+    }
+
 }
