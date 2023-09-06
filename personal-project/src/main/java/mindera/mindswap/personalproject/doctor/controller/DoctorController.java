@@ -6,6 +6,7 @@ import mindera.mindswap.personalproject.doctor.dto.DoctorDto;
 import mindera.mindswap.personalproject.doctor.dto.DoctorUpdateDto;
 import mindera.mindswap.personalproject.doctor.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,23 +22,23 @@ public class DoctorController {
     }
 
     @GetMapping("/{doctorId}")
-    public DoctorDto getById(@PathVariable Long doctorId){
-        return doctorService.getById(doctorId);
+    public ResponseEntity<?> getById(@PathVariable Long doctorId){
+        return ResponseEntity.ok(doctorService.getById(doctorId));
     }
 
     @PostMapping
-    public DoctorDto create(@RequestBody DoctorCreateDto doctorCreateDto){
-        return doctorService.create(doctorCreateDto);
+    public ResponseEntity<?> create(@RequestBody DoctorCreateDto doctorCreateDto){
+        return new ResponseEntity<>(doctorService.create(doctorCreateDto), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{doctorId}")
-    public ResponseEntity<String> delete(@PathVariable Long doctorId){
-        return doctorService.delete(doctorId);
+    public ResponseEntity<?> delete(@PathVariable Long doctorId){
+        return ResponseEntity.ok(doctorService.delete(doctorId));
     }
 
     @PutMapping("/{doctorId}")
-    public DoctorDto update(@PathVariable Long doctorId, @RequestBody DoctorUpdateDto doctorUpdateDto){
-        return doctorService.update(doctorId, doctorUpdateDto);
+    public ResponseEntity<?> update(@PathVariable Long doctorId, @RequestBody DoctorUpdateDto doctorUpdateDto){
+        return ResponseEntity.ok(doctorService.update(doctorId, doctorUpdateDto));
     }
 
     @GetMapping("/{doctorId}/appointments")

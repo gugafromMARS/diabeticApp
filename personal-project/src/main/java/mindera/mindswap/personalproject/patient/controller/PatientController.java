@@ -26,17 +26,13 @@ public class PatientController {
     }
 
     @GetMapping
-    public List<PatientDto> getAll(){
-        return patientService.getAll();
+    public ResponseEntity<?> getAll(){
+        return ResponseEntity.ok(patientService.getAll());
     }
 
     @GetMapping("/{patientId}")
-    public ResponseEntity<PatientDto> getById(@PathVariable ("patientId") Long patientId){
-        PatientDto patientDto = patientService.getById(patientId);
-        if(patientDto == null){
-            return ResponseEntity.notFound().build();
-        }
-        return new ResponseEntity<>(patientDto, HttpStatus.OK);
+    public ResponseEntity<?> getById(@PathVariable ("patientId") Long patientId){
+        return ResponseEntity.ok(patientService.getById(patientId));
     }
 
     @GetMapping("/{patientId}/appointments")
@@ -49,23 +45,14 @@ public class PatientController {
         return ResponseEntity.ok(patientService.getAppointmentById(patientId, appointmentId));
     }
 
-
     @PostMapping
-    public ResponseEntity<PatientDto> create(@RequestBody PatientCreateDto patientCreateDto){
-        PatientDto patientDto = patientService.create(patientCreateDto);
-        if(patientDto == null){
-            return ResponseEntity.badRequest().build();
-        }
-        return new ResponseEntity<>(patientDto, HttpStatus.CREATED);
+    public ResponseEntity<?> create(@RequestBody PatientCreateDto patientCreateDto){
+        return new ResponseEntity<>(patientService.create(patientCreateDto), HttpStatus.CREATED);
     }
 
     @PostMapping("/{patientId}/diabeticDetails")
-    public ResponseEntity<PatientDto> createDiabeticDetails(@PathVariable ("patientId") Long patientId, @RequestBody DiabeticDetailsCreateDto diabeticDetailsCreateDto){
-        PatientDto patientDto = patientService.createDiabeticDetails(patientId, diabeticDetailsCreateDto);
-        if(patientDto == null){
-            return ResponseEntity.badRequest().build();
-        }
-        return new ResponseEntity<>(patientDto, HttpStatus.CREATED);
+    public ResponseEntity<?> createDiabeticDetails(@PathVariable ("patientId") Long patientId, @RequestBody DiabeticDetailsCreateDto diabeticDetailsCreateDto){
+        return new ResponseEntity<>(patientService.createDiabeticDetails(patientId, diabeticDetailsCreateDto), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{patientId}")
@@ -76,16 +63,12 @@ public class PatientController {
     @DeleteMapping("/{patientId}/insulin/{insulinId}")
     public ResponseEntity<String> delete(@PathVariable Long patientId,@PathVariable Long insulinId){
         patientService.deleteInsulinById(patientId, insulinId);
-        return ResponseEntity.ok().build();
+        return new ResponseEntity<>("Insulin deleted successfully", HttpStatus.OK);
     }
 
 
     @PutMapping("/{patientId}")
-    public ResponseEntity<PatientDto> update(@PathVariable Long patientId, @RequestBody PatientUpdateDto patientUpdateDto){
-        PatientDto patientDto = patientService.update(patientId, patientUpdateDto);
-        if(patientDto == null){
-            return ResponseEntity.badRequest().build();
-        }
-        return new ResponseEntity<>(patientDto, HttpStatus.OK);
+    public ResponseEntity<?> update(@PathVariable Long patientId, @RequestBody PatientUpdateDto patientUpdateDto){
+        return ResponseEntity.ok(patientService.update(patientId, patientUpdateDto));
     }
 }

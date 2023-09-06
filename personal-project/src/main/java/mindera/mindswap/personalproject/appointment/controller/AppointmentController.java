@@ -24,50 +24,30 @@ public class AppointmentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<AppointmentDto>> getAll(){
-        List<AppointmentDto> appointmentDtos = appointmentService.getAll();
-        if(appointmentDtos == null){
-            return ResponseEntity.notFound().build();
-        }
-        return new ResponseEntity<>(appointmentDtos, HttpStatus.OK);
+    public ResponseEntity<?> getAll(){
+        return ResponseEntity.ok(appointmentService.getAll());
     }
 
     @GetMapping("/{appointmentId}")
-    public ResponseEntity<AppointmentDto> getById(@PathVariable ("appointmentId") Long appointmentId) {
-        AppointmentDto appointmentDto = appointmentService.getById(appointmentId);
-        if(appointmentDto == null){
-            return ResponseEntity.notFound().build();
-        }
-        return new ResponseEntity<>(appointmentDto, HttpStatus.OK);
+    public ResponseEntity<?> getById(@PathVariable ("appointmentId") Long appointmentId) {
+        return ResponseEntity.ok(appointmentService.getById(appointmentId));
     }
 
     @GetMapping("/patient/{patientId}")
-    public ResponseEntity<List<AppointmentDto>> getAllByPatientId(@PathVariable ("patientId") Long patientId){
-        List<AppointmentDto> appointmentDtos = appointmentService.getAllByPatientId(patientId);
-        if(appointmentDtos == null){
-            return ResponseEntity.badRequest().build();
-        }
-        return new ResponseEntity<>(appointmentDtos, HttpStatus.OK);
+    public ResponseEntity<?> getAllByPatientId(@PathVariable ("patientId") Long patientId){
+       return ResponseEntity.ok(appointmentService.getAllByPatientId(patientId));
     }
 
     @GetMapping("/doctor/{doctorId}")
     public ResponseEntity<List<AppointmentDto>> getAllByDoctorId(@PathVariable ("doctorId") Long doctorId){
-        List<AppointmentDto> appointmentDtos = appointmentService.getAllByDoctorId(doctorId);
-        if(appointmentDtos == null){
-            return ResponseEntity.badRequest().build();
-        }
-        return new ResponseEntity<>(appointmentDtos, HttpStatus.OK);
+        return ResponseEntity.ok(appointmentService.getAllByDoctorId(doctorId));
     }
 
     @PostMapping("/doctor/{doctorId}/patient/{patientId}")
     public ResponseEntity<AppointmentDto> create(@PathVariable ("doctorId") Long doctorId ,
                                                  @PathVariable ("patientId") Long patientId,
                                                  @RequestBody AppointmentCreateDto appointmentCreateDto){
-        AppointmentDto appointmentDto = appointmentService.create(doctorId, patientId, appointmentCreateDto);
-        if(appointmentDto == null){
-            return ResponseEntity.badRequest().build();
-        }
-        return new ResponseEntity<>(appointmentDto, HttpStatus.CREATED);
+        return new ResponseEntity<>(appointmentService.create(doctorId, patientId, appointmentCreateDto), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{appointmentId}")
@@ -79,10 +59,6 @@ public class AppointmentController {
     @PutMapping("/{appointmentId}")
     public ResponseEntity<AppointmentDto> update(@PathVariable("appointmentId") Long appointmentId,
                                                  @RequestBody AppointmentUpdateDto appointmentUpdateDto){
-        AppointmentDto appointmentDto = appointmentService.update(appointmentId, appointmentUpdateDto);
-        if(appointmentDto == null){
-            return ResponseEntity.badRequest().build();
-        }
-        return new ResponseEntity<>(appointmentDto, HttpStatus.OK);
+       return ResponseEntity.ok(appointmentService.update(appointmentId, appointmentUpdateDto));
     }
 }
