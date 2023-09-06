@@ -8,6 +8,8 @@ import mindera.mindswap.personalproject.patient.dto.PatientUpdateDto;
 import mindera.mindswap.personalproject.diabeticDetails.model.DiabeticDetails;
 import mindera.mindswap.personalproject.patient.model.Patient;
 import mindera.mindswap.personalproject.patient.repository.PatientRepository;
+import mindera.mindswap.personalproject.register.model.Register;
+import mindera.mindswap.personalproject.register.repository.RegisterRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -16,6 +18,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
@@ -35,14 +40,20 @@ public class PatientControllerITests {
     private PatientRepository patientRepository;
 
     @Autowired
+    private RegisterRepository registerRepository;
+
+    @Autowired
     private ObjectMapper objectMapper;
 
     PatientCreateDto patientCreateDto = new PatientCreateDto();
     PatientDto patientDto = new PatientDto();
     PatientUpdateDto patientUpdateDto = new PatientUpdateDto();
     PatientDto DtoUpdated = new PatientDto();
+
+    List<Register> registers = new ArrayList<>();
     @BeforeEach
     void setUp(){
+        registerRepository.deleteAll();
         patientRepository.deleteAll();
 
         patientCreateDto.setName("Alberto");
@@ -59,6 +70,7 @@ public class PatientControllerITests {
         Patient patient = Patient.builder()
                 .email(patientCreateDto.getEmail())
                 .diabeticDetails(new DiabeticDetails())
+                .registerList(registers)
                         .build();
         patientRepository.save(patient);
         return patient;
@@ -67,13 +79,10 @@ public class PatientControllerITests {
         patientUpdateDto.setInsulinPerCarbohydrate(4);
 
         DiabeticDetails details = new DiabeticDetails();
-        patientDto.setDiabeticDetails(details);
         DtoUpdated.setName(patientDto.getName());
         DtoUpdated.setEmail(patientDto.getEmail());
         DtoUpdated.setAge(patientDto.getAge());
         DtoUpdated.setId(patientDto.getId());
-        DtoUpdated.setDiabeticDetails(details);
-        DtoUpdated.getDiabeticDetails().setInsulinPerCarbohydrate(patientUpdateDto.getInsulinPerCarbohydrate());
     }
             @Nested
             @Tag("Controller Integration tests")

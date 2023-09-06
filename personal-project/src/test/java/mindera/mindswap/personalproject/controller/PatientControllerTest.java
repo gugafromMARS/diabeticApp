@@ -39,7 +39,6 @@ class PatientControllerTest {
     @Autowired
     private  ObjectMapper objectMapper;
 
-
     PatientCreateDto patientCreateDto = new PatientCreateDto();
     PatientDto patientDto = new PatientDto();
     PatientUpdateDto patientUpdateDto = new PatientUpdateDto();
@@ -63,13 +62,11 @@ class PatientControllerTest {
         patientUpdateDto.setInsulinPerCarbohydrate(4);
 
         DiabeticDetails details = new DiabeticDetails();
-        patientDto.setDiabeticDetails(details);
+
         DtoUpdated.setName(patientDto.getName());
         DtoUpdated.setEmail(patientDto.getEmail());
         DtoUpdated.setAge(patientDto.getAge());
         DtoUpdated.setId(patientDto.getId());
-        DtoUpdated.setDiabeticDetails(details);
-        DtoUpdated.getDiabeticDetails().setInsulinPerCarbohydrate(patientUpdateDto.getInsulinPerCarbohydrate());
 
     }
 
