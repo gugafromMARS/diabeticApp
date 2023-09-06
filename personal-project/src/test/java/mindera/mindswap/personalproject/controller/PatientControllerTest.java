@@ -6,7 +6,7 @@ import mindera.mindswap.personalproject.patient.dto.PatientDto;
 import mindera.mindswap.personalproject.patient.dto.PatientUpdateDto;
 import mindera.mindswap.personalproject.diabeticDetails.model.DiabeticDetails;
 import mindera.mindswap.personalproject.patient.controller.PatientController;
-import mindera.mindswap.personalproject.patient.service.PatientService;
+import mindera.mindswap.personalproject.patient.service.PatientServiceImp;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -34,7 +34,7 @@ class PatientControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    PatientService patientService;
+    PatientServiceImp patientServiceImp;
 
     @Autowired
     private  ObjectMapper objectMapper;
@@ -77,7 +77,7 @@ class PatientControllerTest {
         @DisplayName("Create a patient and return 200 with patientDto")
         public void createAPatientReturn200() throws Exception {
             // given
-            given(patientService.create(any(PatientCreateDto.class)))
+            given(patientServiceImp.create(any(PatientCreateDto.class)))
                     .willReturn(patientDto);
 
             // when
@@ -96,7 +96,7 @@ class PatientControllerTest {
         @DisplayName("Create an exists patient and return 400")
         public void createExistsPatient400() throws Exception {
 
-            when(patientService.create(patientCreateDto)).thenReturn(null);
+            when(patientServiceImp.create(patientCreateDto)).thenReturn(null);
 
             ResultActions response = mockMvc.perform(post("/patients")
                     .contentType(MediaType.APPLICATION_JSON)
@@ -112,7 +112,7 @@ class PatientControllerTest {
 
             Long id = 1L;
 
-            given(patientService.getById(id)).willReturn(patientDto);
+            given(patientServiceImp.getById(id)).willReturn(patientDto);
 
             ResultActions response = mockMvc.perform(get("/patients/{patientId}", id));
 
@@ -125,7 +125,7 @@ class PatientControllerTest {
         public void giveAnInvalidPatientId404() throws Exception {
             Long id = 53L;
 
-            when(patientService.getById(id)).thenReturn(null);
+            when(patientServiceImp.getById(id)).thenReturn(null);
 
             ResultActions response = mockMvc.perform(get("/patients/{patientId}", id));
 
@@ -138,7 +138,7 @@ class PatientControllerTest {
         public void deleteAValidPatient200() throws Exception {
             Long id = 1L;
 
-            willDoNothing().given(patientService).delete(id);
+            willDoNothing().given(patientServiceImp).delete(id);
 
             ResultActions response = mockMvc.perform(delete("/patients/{patientId}", id));
 
@@ -152,8 +152,8 @@ class PatientControllerTest {
             updatePatient();
             Long id = patientDto.getId();
 
-            given(patientService.getById(id)).willReturn(patientDto);
-            given(patientService.update(any(Long.class),any(PatientUpdateDto.class))).willReturn(DtoUpdated);
+            given(patientServiceImp.getById(id)).willReturn(patientDto);
+            given(patientServiceImp.update(any(Long.class),any(PatientUpdateDto.class))).willReturn(DtoUpdated);
 
             ResultActions response = mockMvc.perform(put("/patients/{patientId}", id)
                     .contentType(MediaType.APPLICATION_JSON)
@@ -172,8 +172,8 @@ class PatientControllerTest {
             updatePatient();
             Long id = patientDto.getId();
 
-            given(patientService.getById(id)).willReturn(patientDto);
-            given(patientService.update(id,patientUpdateDto)).willReturn(DtoUpdated);
+            given(patientServiceImp.getById(id)).willReturn(patientDto);
+            given(patientServiceImp.update(id,patientUpdateDto)).willReturn(DtoUpdated);
 
             ResultActions response = mockMvc.perform(put("/patients/{patientId}", id)
                     .contentType(MediaType.APPLICATION_JSON)

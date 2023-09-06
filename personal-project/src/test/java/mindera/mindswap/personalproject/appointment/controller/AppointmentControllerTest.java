@@ -10,6 +10,7 @@ import mindera.mindswap.personalproject.doctor.model.Doctor;
 import mindera.mindswap.personalproject.doctor.repository.DoctorRepository;
 import mindera.mindswap.personalproject.patient.model.Patient;
 import mindera.mindswap.personalproject.patient.repository.PatientRepository;
+import mindera.mindswap.personalproject.register.model.Register;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -21,6 +22,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -66,6 +69,8 @@ class AppointmentControllerTest {
     }
 
     public Appointment persistsAppointment(){
+        doctorRepository.save(doctor);
+        patientRepository.save(patient);
         Appointment appointment = Appointment.builder()
                 .patient(patient)
                 .doctor(doctor)
@@ -81,7 +86,7 @@ class AppointmentControllerTest {
 
         @Test
         @DisplayName("Create a valid appointment and return 200")
-                public void createAValidAppointment200() throws Exception {
+        public void createAValidAppointment200() throws Exception {
             persistDoctorAndPatient();
 
             ResultActions response = mockMvc.perform(post("/appointments/doctor/{doctorId}/patient/{patientId}",
