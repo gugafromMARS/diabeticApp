@@ -186,7 +186,6 @@ class AppointmentControllerTest {
 
             response.andDo(MockMvcResultHandlers.print())
                     .andExpect(status().isNotFound());
-
         }
 
     }
