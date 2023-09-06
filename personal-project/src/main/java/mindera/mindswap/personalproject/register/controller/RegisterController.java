@@ -25,22 +25,13 @@ public class RegisterController {
     }
 
     @GetMapping
-    public ResponseEntity<List<RegisterDto>> getAll(){
-        List<RegisterDto> registerDtos = registerService.getAll();
-        if(registerDtos == null){
-            return ResponseEntity.badRequest().build();
-        }
-        return new ResponseEntity<>(registerDtos, HttpStatus.OK);
+    public ResponseEntity<?> getAll(){
+        return ResponseEntity.ok(registerService.getAll());
     }
 
-
     @PostMapping("/patient/{patientId}")
-    public ResponseEntity<RegisterDto> create(@RequestBody RegisterCreateDto registerCreateDto, @PathVariable ("patientId") Long patientId){
-        RegisterDto registerDto = registerService.create(registerCreateDto, patientId);
-        if(registerDto == null){
-            return ResponseEntity.badRequest().build();
-        }
-        return new ResponseEntity<>(registerDto, HttpStatus.CREATED);
+    public ResponseEntity<?> create(@RequestBody RegisterCreateDto registerCreateDto, @PathVariable ("patientId") Long patientId){
+        return new ResponseEntity<>(registerService.create(registerCreateDto, patientId), HttpStatus.CREATED);
     }
 
 
@@ -51,21 +42,10 @@ public class RegisterController {
     }
 
     @PutMapping("/{registerId}")
-    public ResponseEntity<RegisterDto> update(@PathVariable ("registerId") Long registerId,
+    public ResponseEntity<?> update(@PathVariable ("registerId") Long registerId,
                                               @RequestBody RegisterUpdateDto registerUpdateDto) {
-        RegisterDto registerDto = registerService.update(registerId, registerUpdateDto);
-        if(registerDto == null){
-            return ResponseEntity.badRequest().build();
-        }
-        return new ResponseEntity<>(registerDto, HttpStatus.OK);
+        return new ResponseEntity<>(registerService.update(registerId, registerUpdateDto), HttpStatus.OK);
     }
-
-
-
-
-
-
-
 
 
 }
