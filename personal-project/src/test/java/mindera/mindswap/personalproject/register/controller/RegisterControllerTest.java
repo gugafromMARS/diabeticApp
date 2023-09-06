@@ -72,8 +72,6 @@ class RegisterControllerTest {
     }
 
 
-
-
     @Nested
     @Tag("Crud tests")
     class RegisterIntegrationTests{

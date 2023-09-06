@@ -4,7 +4,7 @@ package mindera.mindswap.personalproject.appointment.controller;
 import mindera.mindswap.personalproject.appointment.dto.AppointmentCreateDto;
 import mindera.mindswap.personalproject.appointment.dto.AppointmentDto;
 import mindera.mindswap.personalproject.appointment.dto.AppointmentUpdateDto;
-import mindera.mindswap.personalproject.appointment.service.AppointmentService;
+import mindera.mindswap.personalproject.appointment.service.AppointmentServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,49 +16,49 @@ import java.util.List;
 @RequestMapping("/appointments")
 public class AppointmentController {
 
-    private AppointmentService appointmentService;
+    private AppointmentServiceImp appointmentServiceImp;
 
     @Autowired
-    public AppointmentController(AppointmentService appointmentService) {
-        this.appointmentService = appointmentService;
+    public AppointmentController(AppointmentServiceImp appointmentServiceImp) {
+        this.appointmentServiceImp = appointmentServiceImp;
     }
 
     @GetMapping
     public ResponseEntity<?> getAll(){
-        return ResponseEntity.ok(appointmentService.getAll());
+        return ResponseEntity.ok(appointmentServiceImp.getAll());
     }
 
     @GetMapping("/{appointmentId}")
     public ResponseEntity<?> getById(@PathVariable ("appointmentId") Long appointmentId) {
-        return ResponseEntity.ok(appointmentService.getById(appointmentId));
+        return ResponseEntity.ok(appointmentServiceImp.getById(appointmentId));
     }
 
     @GetMapping("/patient/{patientId}")
     public ResponseEntity<?> getAllByPatientId(@PathVariable ("patientId") Long patientId){
-       return ResponseEntity.ok(appointmentService.getAllByPatientId(patientId));
+       return ResponseEntity.ok(appointmentServiceImp.getAllByPatientId(patientId));
     }
 
     @GetMapping("/doctor/{doctorId}")
-    public ResponseEntity<List<AppointmentDto>> getAllByDoctorId(@PathVariable ("doctorId") Long doctorId){
-        return ResponseEntity.ok(appointmentService.getAllByDoctorId(doctorId));
+    public ResponseEntity<?> getAllByDoctorId(@PathVariable ("doctorId") Long doctorId){
+        return ResponseEntity.ok(appointmentServiceImp.getAllByDoctorId(doctorId));
     }
 
     @PostMapping("/doctor/{doctorId}/patient/{patientId}")
-    public ResponseEntity<AppointmentDto> create(@PathVariable ("doctorId") Long doctorId ,
+    public ResponseEntity<?> create(@PathVariable ("doctorId") Long doctorId ,
                                                  @PathVariable ("patientId") Long patientId,
                                                  @RequestBody AppointmentCreateDto appointmentCreateDto){
-        return new ResponseEntity<>(appointmentService.create(doctorId, patientId, appointmentCreateDto), HttpStatus.CREATED);
+        return new ResponseEntity<>(appointmentServiceImp.create(doctorId, patientId, appointmentCreateDto), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{appointmentId}")
     public ResponseEntity<String> delete(@PathVariable ("appointmentId") Long appointmentId){
-        appointmentService.delete(appointmentId);
+        appointmentServiceImp.delete(appointmentId);
         return new ResponseEntity<>("Appointment deleted successfully", HttpStatus.OK);
     }
 
     @PutMapping("/{appointmentId}")
-    public ResponseEntity<AppointmentDto> update(@PathVariable("appointmentId") Long appointmentId,
+    public ResponseEntity<?> update(@PathVariable("appointmentId") Long appointmentId,
                                                  @RequestBody AppointmentUpdateDto appointmentUpdateDto){
-       return ResponseEntity.ok(appointmentService.update(appointmentId, appointmentUpdateDto));
+       return ResponseEntity.ok(appointmentServiceImp.update(appointmentId, appointmentUpdateDto));
     }
 }
