@@ -18,6 +18,9 @@ public class DoctorDto {
         this.speciality = speciality;
     }
 
+    public DoctorDto() {
+    }
+
     public Long getId() {
         return id;
     }
