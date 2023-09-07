@@ -25,7 +25,7 @@ Services used.
 
 1- Run this command on terminal for start a container with mysql
 ```shell script
-docker run --rm -d -p 3306:3306 --name my_mysql -v $(pwd)/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=mydiabeticapp mysql:latest
+docker run --rm -d -p 3306:3306 --name my_mysql -v $(pwd)/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD={YOUR_PASSWORD} -e MYSQL_DATABASE={YOUR_DATABASE_NAME} mysql:latest
 ```
 2- Create your jar 
 ```shell script
