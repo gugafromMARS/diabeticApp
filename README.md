@@ -36,7 +36,7 @@ mvn jar:jar
 mvn spring-boot:run
 ```
 
-## App Functionalitys
+## App functionalitys
 
 In this app you have several options :
 
