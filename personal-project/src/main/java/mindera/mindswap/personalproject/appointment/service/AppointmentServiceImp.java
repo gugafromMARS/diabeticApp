@@ -41,17 +41,20 @@ public class AppointmentServiceImp implements AppointmentService {
         this.doctorConverter = doctorConverter;
     }
 
+    @Override
     public List<AppointmentDto> getAll() {
         return appointmentRepository.findAll().stream()
                 .map(appointment -> appointmentConverter.toDto(appointment)).toList();
     }
 
+    @Override
     public AppointmentDto getById(Long appointmentId) {
         return appointmentRepository.findById(appointmentId).stream()
                 .map(appointment -> appointmentConverter.toDto(appointment))
                 .findFirst().orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Appointment not found"));
     }
 
+    @Override
     public List<AppointmentDto> getAllByPatientId(Long patientId) {
         Patient patient = patientRepository.findById(patientId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient not found"));
@@ -59,6 +62,7 @@ public class AppointmentServiceImp implements AppointmentService {
                 .map(appointment -> appointmentConverter.toDto(appointment)).toList();
     }
 
+    @Override
     public List<AppointmentDto> getAllByDoctorId(Long doctorId) {
         Doctor doctor = doctorRepository.findById(doctorId)
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found"));
@@ -66,6 +70,7 @@ public class AppointmentServiceImp implements AppointmentService {
                 .map(appointment -> appointmentConverter.toDto(appointment)).toList();
     }
 
+    @Override
     public AppointmentDto create(Long doctorId, Long patientId, AppointmentCreateDto appointmentCreateDto) {
         Doctor doctor = doctorRepository.findById(doctorId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found"));
@@ -86,6 +91,7 @@ public class AppointmentServiceImp implements AppointmentService {
         return appointmentConverter.toDto(newAppointment);
     }
 
+    @Override
     public void delete(Long appointmentId) {
         Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Appointment not found"));
@@ -93,6 +99,7 @@ public class AppointmentServiceImp implements AppointmentService {
     }
 
 
+    @Override
     public AppointmentDto update(Long appointmentId, AppointmentUpdateDto appointmentUpdateDto) {
         Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Appointment not found"));
