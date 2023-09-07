@@ -7,7 +7,7 @@ Welcome to my Rest Api app, this is my solo application focus on diabetic people
 
 ## Architecture 
 
-![ArchitectureImg](https://github.com/gugafromMARS/diabeticApp/assets/116969206/8a873a6b-96c0-418c-9de9-37494f2d34cc)
+![ArchitectureImg](https://github.com/gugafromMARS/diabeticApp/assets/116969206/0870dbfa-5fc2-49b3-871b-bc8e450e9a6d)
 
 ## Technology
 
