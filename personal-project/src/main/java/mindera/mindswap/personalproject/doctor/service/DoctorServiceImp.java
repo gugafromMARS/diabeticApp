@@ -32,12 +32,14 @@ public class DoctorServiceImp implements DoctorService {
         this.appointmentConverter = appointmentConverter;
     }
 
+    @Override
     public DoctorDto getById(Long doctorId) {
         Doctor doctor = doctorRepository.findById(doctorId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found"));
         return doctorConverter.toDto(doctor);
     }
 
+    @Override
     public DoctorDto create(DoctorCreateDto doctorCreateDto) {
         Doctor doctor = doctorRepository.findByEmail(doctorCreateDto.getEmail());
         if(doctor != null){
@@ -48,6 +50,7 @@ public class DoctorServiceImp implements DoctorService {
         return doctorConverter.toDto(newDoctor);
     }
 
+    @Override
     public ResponseEntity<String> delete(Long doctorId) {
         Doctor doctor = doctorRepository.findById(doctorId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found"));
@@ -55,6 +58,7 @@ public class DoctorServiceImp implements DoctorService {
         return ResponseEntity.ok().build();
     }
 
+    @Override
     public DoctorDto update(Long doctorId, DoctorUpdateDto doctorUpdateDto) {
         Doctor doctor = doctorRepository.findById(doctorId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found"));
@@ -68,6 +72,7 @@ public class DoctorServiceImp implements DoctorService {
         return doctorConverter.toDto(doctor);
     }
 
+    @Override
     public List<AppointmentDto> getAppointments(Long doctorId) {
         Doctor doctor = doctorRepository.findById(doctorId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found"));
@@ -75,6 +80,7 @@ public class DoctorServiceImp implements DoctorService {
                 .map(appointment -> appointmentConverter.toDto(appointment)).toList();
     }
 
+    @Override
     public AppointmentDto getAppointmentById(Long doctorId, Long appointmentId) {
         Doctor doctor = doctorRepository.findById(doctorId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found"));

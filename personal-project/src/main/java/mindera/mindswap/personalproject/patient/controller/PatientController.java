@@ -62,9 +62,38 @@ public class PatientController {
         return new ResponseEntity<>("Insulin deleted successfully", HttpStatus.OK);
     }
 
-
     @PutMapping("/{patientId}")
     public ResponseEntity<?> update(@PathVariable Long patientId, @RequestBody PatientUpdateDto patientUpdateDto){
         return ResponseEntity.ok(patientServiceImp.update(patientId, patientUpdateDto));
     }
+
+    @GetMapping("/{patientId}/registers")
+    public ResponseEntity<?> getAllRegisters(@PathVariable ("patientId") Long patientId){
+        return ResponseEntity.ok(patientServiceImp.getAllRegisters(patientId));
+    }
+
+    @GetMapping("/{patientId}/registers/{registerId}")
+    public ResponseEntity<?> getRegister(@PathVariable ("patientId") Long patientId,
+                                             @PathVariable ("registerId") Long registerId){
+        return ResponseEntity.ok(patientServiceImp.getRegisterById(patientId, registerId));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

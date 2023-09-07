@@ -17,6 +17,10 @@ import mindera.mindswap.personalproject.insulin.model.Insulin;
 import mindera.mindswap.personalproject.patient.model.Patient;
 import mindera.mindswap.personalproject.insulin.repository.InsulinRepository;
 import mindera.mindswap.personalproject.patient.repository.PatientRepository;
+import mindera.mindswap.personalproject.register.converter.RegisterConverter;
+import mindera.mindswap.personalproject.register.dto.RegisterDto;
+import mindera.mindswap.personalproject.register.model.Register;
+import mindera.mindswap.personalproject.register.repository.RegisterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -28,21 +32,18 @@ import java.util.List;
 public class PatientServiceImp implements PatientService {
 
     PatientRepository patientRepository;
-
     PatientConverter patientConverter;
-
     InsulinRepository insulinRepository;
-
     DiabeticDetailsConverter diabeticDetailsConverter;
-
     DiabeticDetailsRepository diabeticDetailsRepository;
-
     AppointmentConverter appointmentConverter;
-
     AppointmentRepository appointmentRepository;
+    RegisterConverter registerConverter;
+
+    RegisterRepository registerRepository;
 
     @Autowired
-    public PatientServiceImp(PatientRepository patientRepository, PatientConverter patientConverter, InsulinRepository insulinRepository, DiabeticDetailsConverter diabeticDetailsConverter, DiabeticDetailsRepository diabeticDetailsRepository, AppointmentConverter appointmentConverter, AppointmentRepository appointmentRepository) {
+    public PatientServiceImp(PatientRepository patientRepository, PatientConverter patientConverter, InsulinRepository insulinRepository, DiabeticDetailsConverter diabeticDetailsConverter, DiabeticDetailsRepository diabeticDetailsRepository, AppointmentConverter appointmentConverter, AppointmentRepository appointmentRepository, RegisterConverter registerConverter, RegisterRepository registerRepository) {
         this.patientRepository = patientRepository;
         this.patientConverter = patientConverter;
         this.insulinRepository = insulinRepository;
@@ -50,6 +51,8 @@ public class PatientServiceImp implements PatientService {
         this.diabeticDetailsRepository = diabeticDetailsRepository;
         this.appointmentConverter = appointmentConverter;
         this.appointmentRepository = appointmentRepository;
+        this.registerConverter = registerConverter;
+        this.registerRepository = registerRepository;
     }
 
     public List<PatientDto> getAll() {
@@ -131,5 +134,21 @@ public class PatientServiceImp implements PatientService {
         Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Appointment not found"));
         return appointmentConverter.toDto(appointment);
+    }
+
+    public List<RegisterDto> getAllRegisters(Long patientId) {
+        Patient patient = patientRepository.findById(patientId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient not found"));
+        return registerRepository.findAllByPatientId(patientId).stream()
+                .map(register -> registerConverter.toDto(register)).toList();
+    }
+
+    public RegisterDto getRegisterById(Long patientId, Long registerId) {
+        Patient patient = patientRepository.findById(patientId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient not found"));
+        return registerRepository.findById(registerId).stream()
+                .map(register -> registerConverter.toDto(register))
+                .findFirst()
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Register not found"));
     }
 }

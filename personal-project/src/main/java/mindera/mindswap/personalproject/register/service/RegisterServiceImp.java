@@ -32,11 +32,13 @@ public class RegisterServiceImp implements RegisterService {
 
 
 
+    @Override
     public List<RegisterDto> getAll() {
         return registerRepository.findAll().stream()
                 .map(register -> registerConverter.toDto(register)).toList();
     }
 
+    @Override
     public RegisterDto create(RegisterCreateDto registerCreateDto, Long patientId) {
         Register existingRegister = registerRepository.findByLocalDateTime(registerCreateDto.getLocalDateTime());
         Patient patient = patientRepository.findById(patientId)
@@ -49,12 +51,14 @@ public class RegisterServiceImp implements RegisterService {
         return registerConverter.toDto(newRegister);
     }
 
+    @Override
     public void deleteById(Long registerId) {
         Register register = registerRepository.findById(registerId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Register not found"));
         registerRepository.delete(register);
     }
 
+    @Override
     public RegisterDto update(Long registerId, RegisterUpdateDto registerUpdateDto) {
         Register existingRegister = registerRepository.findById(registerId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Register not found"));
