@@ -1,4 +1,4 @@
-# Diabetic APP
+# Diabetic App
 
 ![Logo](https://149777215.v2.pressablecdn.com/wp-content/uploads/2017/10/Gustaitis100617-1000x667.jpg)
 
