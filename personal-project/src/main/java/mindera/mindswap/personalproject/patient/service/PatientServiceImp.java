@@ -1,6 +1,9 @@
 package mindera.mindswap.personalproject.patient.service;
 
 
+import mindera.mindswap.personalproject.analitics.AnalyticsHistory;
+import mindera.mindswap.personalproject.analitics.dto.AnalyticsDto;
+import mindera.mindswap.personalproject.analitics.dto.DateFiltersCreateDto;
 import mindera.mindswap.personalproject.appointment.converter.AppointmentConverter;
 import mindera.mindswap.personalproject.appointment.dto.AppointmentDto;
 import mindera.mindswap.personalproject.appointment.model.Appointment;
@@ -19,7 +22,6 @@ import mindera.mindswap.personalproject.insulin.repository.InsulinRepository;
 import mindera.mindswap.personalproject.patient.repository.PatientRepository;
 import mindera.mindswap.personalproject.register.converter.RegisterConverter;
 import mindera.mindswap.personalproject.register.dto.RegisterDto;
-import mindera.mindswap.personalproject.register.model.Register;
 import mindera.mindswap.personalproject.register.repository.RegisterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,11 +41,11 @@ public class PatientServiceImp implements PatientService {
     AppointmentConverter appointmentConverter;
     AppointmentRepository appointmentRepository;
     RegisterConverter registerConverter;
-
     RegisterRepository registerRepository;
+    AnalyticsHistory analyticsHistory;
 
     @Autowired
-    public PatientServiceImp(PatientRepository patientRepository, PatientConverter patientConverter, InsulinRepository insulinRepository, DiabeticDetailsConverter diabeticDetailsConverter, DiabeticDetailsRepository diabeticDetailsRepository, AppointmentConverter appointmentConverter, AppointmentRepository appointmentRepository, RegisterConverter registerConverter, RegisterRepository registerRepository) {
+    public PatientServiceImp(PatientRepository patientRepository, PatientConverter patientConverter, InsulinRepository insulinRepository, DiabeticDetailsConverter diabeticDetailsConverter, DiabeticDetailsRepository diabeticDetailsRepository, AppointmentConverter appointmentConverter, AppointmentRepository appointmentRepository, RegisterConverter registerConverter, RegisterRepository registerRepository, AnalyticsHistory analyticsHistory) {
         this.patientRepository = patientRepository;
         this.patientConverter = patientConverter;
         this.insulinRepository = insulinRepository;
@@ -53,6 +55,7 @@ public class PatientServiceImp implements PatientService {
         this.appointmentRepository = appointmentRepository;
         this.registerConverter = registerConverter;
         this.registerRepository = registerRepository;
+        this.analyticsHistory = analyticsHistory;
     }
 
     public List<PatientDto> getAll() {
@@ -150,5 +153,20 @@ public class PatientServiceImp implements PatientService {
                 .map(register -> registerConverter.toDto(register))
                 .findFirst()
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Register not found"));
+    }
+
+    public List<RegisterDto> getRegisterByDate(Long patientId, DateFiltersCreateDto dateFiltersCreateDto) {
+        Patient patient = patientRepository.findById(patientId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient not found"));
+            return analyticsHistory.registersBetweenDates(patientId,
+                    dateFiltersCreateDto.getStartDate(),
+                    dateFiltersCreateDto.getEndDate()).stream()
+                    .map(register -> registerConverter.toDto(register)).toList();
+    }
+
+    public AnalyticsDto getAvgRegisters(Long patientId, DateFiltersCreateDto dateFiltersCreateDto) {
+        Patient patient = patientRepository.findById(patientId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient not found"));
+        return analyticsHistory.avgGlucoseAndInsulin(patientId, dateFiltersCreateDto.getStartDate(), dateFiltersCreateDto.getEndDate());
     }
 }

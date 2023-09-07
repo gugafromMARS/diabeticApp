@@ -13,4 +13,5 @@ public interface RegisterRepository extends JpaRepository<Register, Long> {
 
     Register findByLocalDateTime(LocalDateTime localDateTime);
     List<Register> findAllByPatientId(Long patientId);
+    List<Register> findByLocalDateTimeBetween(LocalDateTime startDate, LocalDateTime endDate);
 }

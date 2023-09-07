@@ -1,6 +1,7 @@
 package mindera.mindswap.personalproject.patient.controller;
 
 
+import mindera.mindswap.personalproject.analitics.dto.DateFiltersCreateDto;
 import mindera.mindswap.personalproject.diabeticDetails.dto.DiabeticDetailsCreateDto;
 import mindera.mindswap.personalproject.patient.dto.PatientCreateDto;
 import mindera.mindswap.personalproject.patient.dto.PatientUpdateDto;
@@ -76,6 +77,16 @@ public class PatientController {
     public ResponseEntity<?> getRegister(@PathVariable ("patientId") Long patientId,
                                              @PathVariable ("registerId") Long registerId){
         return ResponseEntity.ok(patientServiceImp.getRegisterById(patientId, registerId));
+    }
+
+    @GetMapping("/{patientId}/registers/dates")
+    public ResponseEntity<?> getRegistersByDate(@PathVariable ("patientId") Long patientId, @RequestBody DateFiltersCreateDto dateFiltersCreateDto){
+        return ResponseEntity.ok(patientServiceImp.getRegisterByDate( patientId, dateFiltersCreateDto));
+    }
+
+    @GetMapping("/{patientId}/registers/average")
+    public ResponseEntity<?> getAvgRegister(@PathVariable ("patientId") Long patientId, @RequestBody DateFiltersCreateDto dateFiltersCreateDto){
+        return ResponseEntity.ok(patientServiceImp.getAvgRegisters(patientId, dateFiltersCreateDto));
     }
 
 
