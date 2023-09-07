@@ -2,7 +2,7 @@
 
 ![Logo](https://149777215.v2.pressablecdn.com/wp-content/uploads/2017/10/Gustaitis100617-1000x667.jpg)
 
-Welcome to my Rest Api app, this is my solo application focus on diabetic people, im a diabetic type 1 too, so i decide to use this ideia to all the other people like me, this is a simple application for any patient with connection to his diabetic details, dairy register about glucose and insulin units, connected to your doctor, and both patient and doctor have acess to the appointments. At the moment im trying to implement the monitorazing register for week and monthly!
+Welcome to my Rest Api app, this is my solo application focus on diabetic people, im a diabetic type 1 too, so i decide to use this ideia to all the other people like me, this is a simple application for any patient with connection to his diabetic details, dairy register about glucose and insulin units, connected to your doctor, and both patient and doctor have acess to the appointments! We have a feature that patient and doctor can access to registers between dates or get the average of insulin and glucose from registers between dates.
 
 
 ## Architecture
@@ -55,7 +55,7 @@ In this app you have several options :
   In this api you can register your glucose, and the total of carbohydrates in grams you going to eat, and the app is going to calculate the insulin indice you put on your diabetic details and calculate the total of insulin you need to give!
 * **Get**
 
-  If you are a patient you can get all your appointments and all your registers, or if you are a doctor you can see all your appointments too.
+  If you are a patient you can get all your appointments and all your registers, or if you are a doctor you can see all your appointments too. You can even get your average glucose and insulin from your registers between dates.
 
 
 
