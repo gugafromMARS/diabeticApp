@@ -90,21 +90,4 @@ public class PatientController {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
