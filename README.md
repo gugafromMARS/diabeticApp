@@ -57,7 +57,11 @@ In this app you have several options :
 
   If you are a patient you can get all your appointments and all your registers, or if you are a doctor you can see all your appointments too. You can even get your average glucose and insulin from your registers between dates.
 
+## Tests
 
+I made some integration controller tests for all controllers, using :
+
+* Mockito
 
 ## Authors
 
