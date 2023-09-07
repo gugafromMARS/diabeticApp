@@ -5,9 +5,10 @@
 Welcome to my Rest Api app, this is my solo application focus on diabetic people, im a diabetic type 1 too, so i decide to use this ideia to all the other people like me, this is a simple application for any patient with connection to his diabetic details, dairy register about glucose and insulin units, connected to your doctor, and both patient and doctor have acess to the appointments. At the moment im trying to implement the monitorazing register for week and monthly!
 
 
-## Architecture 
+## Architecture
 
-![ArchitectureImg](https://github.com/gugafromMARS/diabeticApp/assets/116969206/0870dbfa-5fc2-49b3-871b-bc8e450e9a6d)
+
+![ArchitectureImg](https://github.com/gugafromMARS/diabeticApp/assets/116969206/210ec579-a2f7-4929-a064-078da6499196)
 
 ## Technology
 
