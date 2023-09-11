@@ -1,12 +1,12 @@
 package mindera.mindswap.personalproject.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import mindera.mindswap.personalproject.patient.dto.PatientCreateDto;
-import mindera.mindswap.personalproject.patient.dto.PatientDto;
-import mindera.mindswap.personalproject.patient.dto.PatientUpdateDto;
-import mindera.mindswap.personalproject.diabeticDetails.model.DiabeticDetails;
-import mindera.mindswap.personalproject.patient.controller.PatientController;
-import mindera.mindswap.personalproject.patient.service.PatientServiceImp;
+import mindera.mindswap.personalproject.dto.patient.PatientCreateDto;
+import mindera.mindswap.personalproject.dto.patient.PatientDto;
+import mindera.mindswap.personalproject.dto.patient.PatientUpdateDto;
+import mindera.mindswap.personalproject.model.diabeticDetails.DiabeticDetails;
+import mindera.mindswap.personalproject.controller.patient.PatientController;
+import mindera.mindswap.personalproject.service.patient.PatientServiceImp;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
