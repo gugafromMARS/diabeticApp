@@ -1,31 +1,25 @@
 package mindera.mindswap.personalproject.appointment.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import mindera.mindswap.personalproject.appointment.dto.AppointmentCreateDto;
-import mindera.mindswap.personalproject.appointment.dto.AppointmentUpdateDto;
-import mindera.mindswap.personalproject.appointment.model.Appointment;
-import mindera.mindswap.personalproject.appointment.repository.AppointmentRepository;
-import mindera.mindswap.personalproject.doctor.model.Doctor;
-import mindera.mindswap.personalproject.doctor.repository.DoctorRepository;
-import mindera.mindswap.personalproject.patient.model.Patient;
-import mindera.mindswap.personalproject.patient.repository.PatientRepository;
-import mindera.mindswap.personalproject.register.model.Register;
+import mindera.mindswap.personalproject.dto.appointment.AppointmentCreateDto;
+import mindera.mindswap.personalproject.dto.appointment.AppointmentUpdateDto;
+import mindera.mindswap.personalproject.model.appointment.Appointment;
+import mindera.mindswap.personalproject.repository.appointment.AppointmentRepository;
+import mindera.mindswap.personalproject.model.doctor.Doctor;
+import mindera.mindswap.personalproject.repository.doctor.DoctorRepository;
+import mindera.mindswap.personalproject.model.patient.Patient;
+import mindera.mindswap.personalproject.repository.patient.PatientRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 

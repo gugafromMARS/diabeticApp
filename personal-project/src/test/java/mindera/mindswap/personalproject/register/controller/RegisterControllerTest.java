@@ -1,15 +1,13 @@
 package mindera.mindswap.personalproject.register.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import mindera.mindswap.personalproject.diabeticDetails.model.DiabeticDetails;
-import mindera.mindswap.personalproject.diabeticDetails.repository.DiabeticDetailsRepository;
-import mindera.mindswap.personalproject.insulin.model.Insulin;
-import mindera.mindswap.personalproject.patient.model.Patient;
-import mindera.mindswap.personalproject.patient.repository.PatientRepository;
-import mindera.mindswap.personalproject.register.dto.RegisterCreateDto;
-import mindera.mindswap.personalproject.register.dto.RegisterUpdateDto;
-import mindera.mindswap.personalproject.register.model.Register;
-import mindera.mindswap.personalproject.register.repository.RegisterRepository;
+import mindera.mindswap.personalproject.model.diabeticDetails.DiabeticDetails;
+import mindera.mindswap.personalproject.model.patient.Patient;
+import mindera.mindswap.personalproject.repository.patient.PatientRepository;
+import mindera.mindswap.personalproject.dto.register.RegisterCreateDto;
+import mindera.mindswap.personalproject.dto.register.RegisterUpdateDto;
+import mindera.mindswap.personalproject.model.register.Register;
+import mindera.mindswap.personalproject.repository.register.RegisterRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -17,14 +15,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
-import javax.swing.*;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 

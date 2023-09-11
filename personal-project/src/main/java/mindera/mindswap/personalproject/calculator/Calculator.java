@@ -1,7 +1,7 @@
 package mindera.mindswap.personalproject.calculator;
 
 
-import mindera.mindswap.personalproject.register.model.Register;
+import mindera.mindswap.personalproject.model.register.Register;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

@@ -1,14 +1,13 @@
 package mindera.mindswap.personalproject.doctor.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import mindera.mindswap.personalproject.appointment.model.Appointment;
-import mindera.mindswap.personalproject.appointment.repository.AppointmentRepository;
-import mindera.mindswap.personalproject.doctor.dto.DoctorCreateDto;
-import mindera.mindswap.personalproject.doctor.dto.DoctorDto;
-import mindera.mindswap.personalproject.doctor.dto.DoctorUpdateDto;
-import mindera.mindswap.personalproject.doctor.model.Doctor;
-import mindera.mindswap.personalproject.doctor.repository.DoctorRepository;
+import mindera.mindswap.personalproject.model.appointment.Appointment;
+import mindera.mindswap.personalproject.repository.appointment.AppointmentRepository;
+import mindera.mindswap.personalproject.dto.doctor.DoctorCreateDto;
+import mindera.mindswap.personalproject.dto.doctor.DoctorDto;
+import mindera.mindswap.personalproject.dto.doctor.DoctorUpdateDto;
+import mindera.mindswap.personalproject.model.doctor.Doctor;
+import mindera.mindswap.personalproject.repository.doctor.DoctorRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
