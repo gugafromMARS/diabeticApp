@@ -62,10 +62,14 @@ public class DoctorServiceImp implements DoctorService {
     public DoctorDto update(Long doctorId, DoctorUpdateDto doctorUpdateDto) {
         Doctor doctor = doctorRepository.findById(doctorId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor not found"));
-        if(doctorUpdateDto.getEmail() != null){
+        if(doctorUpdateDto.getEmail() != null && doctorUpdateDto.getHabitation() != null){
+            doctor.setEmail(doctorUpdateDto.getEmail());
+            doctor.setAddress(doctorUpdateDto.getHabitation());
+        }
+        if(doctorUpdateDto.getEmail() != null && doctorUpdateDto.getHabitation() == null){
             doctor.setEmail(doctorUpdateDto.getEmail());
         }
-        if(doctorUpdateDto.getHabitation() != null){
+        if(doctorUpdateDto.getHabitation() != null && doctorUpdateDto.getEmail() == null){
             doctor.setAddress(doctorUpdateDto.getHabitation());
         }
         doctorRepository.save(doctor);
