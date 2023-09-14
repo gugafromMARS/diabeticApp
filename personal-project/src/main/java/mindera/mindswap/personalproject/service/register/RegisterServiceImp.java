@@ -69,10 +69,10 @@ public class RegisterServiceImp implements RegisterService {
             existingRegister.setGlucose(registerUpdateDto.getGlucose());
             existingRegister.setCarboHydrates(registerUpdateDto.getCarboHydrates());
         }
-        if(registerUpdateDto.getCarboHydrates() == 0){
+        if(registerUpdateDto.getCarboHydrates() == 0 && registerUpdateDto.getGlucose() != 0){
             existingRegister.setGlucose(registerUpdateDto.getGlucose());
         }
-        if(registerUpdateDto.getGlucose() == 0){
+        if(registerUpdateDto.getGlucose() == 0 && registerUpdateDto.getCarboHydrates() != 0){
             existingRegister.setCarboHydrates(registerUpdateDto.getCarboHydrates());
         }
         registerRepository.save(existingRegister);
