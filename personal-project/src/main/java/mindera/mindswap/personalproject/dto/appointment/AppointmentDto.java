@@ -1,11 +1,13 @@
 package mindera.mindswap.personalproject.dto.appointment;
 
+import lombok.NoArgsConstructor;
 import mindera.mindswap.personalproject.dto.doctor.DoctorDto;
 import mindera.mindswap.personalproject.dto.patient.PatientDto;
 
 import java.time.LocalDate;
 
 //@JsonIgnoreProperties(ignoreUnknown=true)
+@NoArgsConstructor
 public class AppointmentDto {
 
     private Long id;
