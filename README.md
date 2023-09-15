@@ -36,12 +36,11 @@ mvn jar:jar
 ```shell script
 mvn spring-boot:run
 ```
-
-## App functionalitys
-
-You have available the swagger Ui
+4- After run it, you have available a Swagger UI
 
 [Swagger UI](http://localhost:8080/swagger-ui/index.html#/)
+
+## App functionalitys
 
 In this app you have several options :
 
