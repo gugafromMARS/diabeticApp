@@ -63,7 +63,7 @@ In this app you have several options :
 
 ## Tests
 
-I made some integration controller tests for all controllers, using :
+I made some integration controller tests and service unit tests for all controllers, using :
 
 * Mockito
 
