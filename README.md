@@ -39,6 +39,10 @@ mvn spring-boot:run
 
 ## App functionalitys
 
+You have available the swagger Ui
+
+[Swagger UI](http://localhost:8080/swagger-ui/index.html#/)
+
 In this app you have several options :
 
 * **Create**
