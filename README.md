@@ -65,6 +65,7 @@ In this app you have several options :
 I made some integration controller tests and service unit tests for all controllers, using :
 
 * Mockito
+* Junit5
 
 ## Authors
 
