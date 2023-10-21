@@ -1,6 +1,6 @@
 # Diabetic App
 
-![Logo](https://149777215.v2.pressablecdn.com/wp-content/uploads/2017/10/Gustaitis100617-1000x667.jpg)
+![Logo](https://github.com/gugafromMARS/diabeticApp/assets/116969206/c099ee05-d38b-4301-a1d9-2090e839da55)
 
 Welcome to my Rest Api backend app, this is my solo application focus on diabetic people, im a diabetic type 1 too, so i decide to use this ideia to all the other people like me, this is a simple application for any patient with connection to his diabetic details, dairy register about glucose and insulin units, connected to your doctor, and both patient and doctor have acess to the appointments! We have a feature that patient and doctor can access to registers between dates or get the average of insulin and glucose from registers between dates.
 
