@@ -7,9 +7,7 @@ Welcome to my Rest Api backend app, this is my solo application focus on diabeti
 
 ## Architecture
 
-
-<img width="814" alt="Screenshot-2023-09-21-at-2 08 19-PM" src="https://github.com/gugafromMARS/diabeticApp/assets/116969206/b37442ea-3ebc-4b4d-841e-d8c8f708fd15">
-
+![ArchitectureImg](https://github.com/gugafromMARS/diabeticApp/assets/116969206/b715e010-b7e4-4d96-96aa-65f85ff787ed)
 
 
 ## Technology
